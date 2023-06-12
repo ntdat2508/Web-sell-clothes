@@ -24,21 +24,14 @@ const repository = AppDataSource.getRepository(Product);
  */
 
 // GET items
+itemsRouter.get('/admin', async (req: Request, res: Response) => {
+    res.render('dashboard_addprd');
+});
 itemsRouter.get('/', async (req: Request, res: Response) => {
-    try {
-        // const items: Item[] = await ItemService.findAll();
-        // console.log("a");
-        // console.log("b");
-        // eslint-disable-next-line prefer-const
-        let it = await repository.find();
-        console.log(it);
-
-        // const allPhotos = await items.find()
-        res.render('items/ds', { list: it, title: 'Danh sách sản phẩm' });
-        // res.status(200).send(items);
-    } catch (e: any) {
-        res.status(500).send(e.message);
-    }
+    res.render('admin');
+});
+itemsRouter.get('/them', async (req: Request, res: Response) => {
+    res.render('themsp');
 });
 
 // POST items

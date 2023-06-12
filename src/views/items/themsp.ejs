@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quan ly san pham - page</title>
+    <meta charset="utf-8">
+    <!-- code css -->
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/libs/css/style.css">
+    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="../assets/vendor/charts/chartist-bundle/chartist.css">
+    <link rel="stylesheet" href="../assets/vendor/charts/morris-bundle/morris.css">
+    <link rel="stylesheet" href="../assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendor/charts/c3charts/c3.css">
+    <link rel="stylesheet" href="../assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+    <link rel="stylesheet" type="../text/css" href="./themxoasp.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading input-group mb-3 mt-3">
+                <a class="btn btn-danger" href="../admin.html">Quay lại Dashboard</a>
+            </div>
+            <div class="panel-heading input-group mb-3">
+                <h3>Trang thông tin sản phẩm</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" id="MyForm">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="form-control">Ảnh sản phẩm: </label>
+                        <input type="file" id="img-upload" class="form-control" onchange="loadFile(event)" required />
+                        <img id="output" width="0px" style="display:none;">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="form-control">Tên sản phẩm: </label>
+                        <input type="text" id="product_name" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="form-control">Tên danh mục: </label>
+                        <select id="category_name" class="form-control">
+                            <option value="Z-BOT CAPSULE">Z-BOT CAPSULE</option>
+                            <option value="YOUNG/ WILD N' TRIPPY">YOUNG/ WILD N' TRIPPY</option>
+                            <option value="TOP">TOP</option>
+                            <option value="BOTTOM">BOTTOM</option>
+                            <option value="ACCESSORY">ACCESSORY</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="form-control">Giá: </label>
+                        <input type="text" id="price" class="form-control" onkeyup="updateTotalPrice()">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="form-control">Số lượng: </label>
+                        <input type="number" id="quantity" class="form-control" onkeyup="updateTotalPrice()">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="form-control">Tổng giá: </label>
+                        <input type="number" id="total_price" class="form-control" disabled="true">
+                    </div>
+
+                    <div class="form-group input-group mt-3">
+                        <button type="button" class="btn  btn-outline-dark" onclick="addProduct()"
+                            style="margin-left: 0px !important;" id="save_btn">Thêm sản phẩm</button>
+                        <button type="reset" class="btn  btn-outline-danger" id="reset_btn"
+                            onclick="resetData()">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="ecommerce-widget">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- recent orders  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 style="font-family: 'Times New Roman', Times, serif;" class="card-header">Bảng dữ liệu</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+                                            <th style="font-family: 'Times New Roman', Times, serif;">STT</th>
+                                            <th style="font-family: 'Times New Roman', Times, serif;">Ảnh sản phẩm</th>
+                                            <th style="font-family: 'Times New Roman', Times, serif;">Tên sản phẩm</th>
+                                            <th style="font-family: 'Times New Roman', Times, serif;">Tên danh mục</th>
+                                            <th style="font-family: 'Times New Roman', Times, serif;">Giá</th>
+                                            <th style="font-family: 'Times New Roman', Times, serif;">Số lượng</th>
+                                            <th style="font-family: 'Times New Roman', Times, serif;">Tổng giá</th>
+                                            <th style="font-family: 'Times New Roman', Times, serif;"></th>
+                                            <th style="font-family: 'Times New Roman', Times, serif;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="result">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================== -->
+                <!-- end recent orders  -->
+            </div>
+        </div>
+
+    </div>
+    <!-- code js -->
+    <script type="text/javascript" src="themxoasp.js"></script>
+    <!-- jquery 3.3.1 -->
+    <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <!-- bootstap bundle js -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- slimscroll js -->
+    <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <!-- main js -->
+    <script src="assets/libs/js/main-js.js"></script>
+    <!-- chart chartist js -->
+    <script src="assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
+    <!-- sparkline js -->
+    <script src="assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
+    <!-- morris js -->
+    <script src="assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+    <script src="assets/vendor/charts/morris-bundle/morris.js"></script>
+    <!-- chart c3 js -->
+    <script src="assets/vendor/charts/c3charts/c3.min.js"></script>
+    <script src="assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
+    <script src="assets/vendor/charts/c3charts/C3chartjs.js"></script>
+    <script src="assets/libs/js/dashboard-ecommerce.js"></script>
+</body>
+
+</html>
