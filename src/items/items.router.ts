@@ -14,7 +14,7 @@ AppDataSource.initialize()
     .then(() => {
         console.log('Connected!');
     })
-    .catch((error) => console.log('Loi' + error));
+    .catch((error) => console.log('Lỗi' + error));
 
 export const itemsRouter = express.Router();
 const repository = AppDataSource.getRepository(Product);
