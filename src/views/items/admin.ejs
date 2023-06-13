@@ -1,6 +1,6 @@
 <div class="dashboard-wrapper">
     <div class="dashboard-ecommerce">
-        <div class="container-fluid dashboard-content ">
+        <div class="container-fluid dashboard-content">
             <!-- ============================================================== -->
             <!-- pageheader  -->
             <!-- ============================================================== -->
@@ -10,8 +10,7 @@
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a>
-                                    </li>
+                                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Product</li>
                                 </ol>
                             </nav>
@@ -26,15 +25,16 @@
                     <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
                         <div class="card">
                             <h5 class="card-header">Recent Orders</h5>
+                            <a href="add_product">Them moi</a>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead class="bg-light">
                                             <tr class="border-0">
-                                                <th class="border-0">#</th>
                                                 <th class="border-0">Hình ảnh</th>
                                                 <th class="border-0">Mã sản phẩm</th>
                                                 <th class="border-0">Tên sản phẩm</th>
+                                                <th class="border-0">Danh mục sản phẩm</th>
                                                 <th class="border-0">Số lượng</th>
                                                 <th class="border-0">Giá</th>
                                                 <th class="border-0">Mô tả</th>
@@ -42,23 +42,38 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% for (let p of list) {%>
+
                                             <tr>
-                                                <td>1</td>
                                                 <td>
-                                                    <div class="m-r-10"><img src="img/capsule/136a9053-2.png" alt="user"
-                                                            class="rounded" width="45"></div>
+                                                    <div class="m-r-10">
+                                                        <img
+                                                            src="img/Bottom/<%= p.image %>"
+                                                            alt="user"
+                                                            class="rounded"
+                                                            width="45"
+                                                        />
+                                                    </div>
                                                 </td>
-                                                <td>cs11</td>
-                                                <td>BASIC FOR LIFE</td>
-                                                <td>7</td>
-                                                <td>299.999VND</td>
-                                                <td>aaaa</td>
+                                                <td><%= p.id %></td>
+                                                <td><%= p.name %></td>
+                                                <td><%= p.category %></td>
+                                                <td><%= p.quantity %></td>
+                                                <td><%= p.price %> VND</td>
+                                                <td><%= p.description %></td>
                                                 <td>
-                                                    <button type="button" class="btn  btn-outline-dark"
-                                                        style="margin-left: 0px !important;" id="save_btn">Sửa</button>
-                                                    <button type="reset" class="btn  btn-outline-danger">Xóa</button>
+                                                    <a
+                                                        href="edit_product/<%= p.id %>"
+                                                        class="btn btn-outline-dark"
+                                                        style="margin-left: 0px !important"
+                                                        id="save_btn"
+                                                    >
+                                                        Sửa</a
+                                                    >
+                                                    <button type="" class="btn btn-outline-danger">Xóa</button>
                                                 </td>
                                             </tr>
+                                            <% } %>
                                         </tbody>
                                     </table>
                                 </div>

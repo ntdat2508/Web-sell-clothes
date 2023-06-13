@@ -7,6 +7,7 @@ import * as ItemService from './items.service';
 import { BaseItem, Item } from './item.interface';
 import { AppDataSource } from '../data-source';
 import { Product } from '../entity/product';
+import { title } from 'process';
 /**
  * Router Definition
  */
@@ -28,27 +29,49 @@ itemsRouter.get('/admin', async (req: Request, res: Response) => {
     res.render('dashboard_addprd');
 });
 itemsRouter.get('/', async (req: Request, res: Response) => {
-    res.render('admin');
-});
-itemsRouter.get('/them', async (req: Request, res: Response) => {
-    res.render('themsp');
-});
-
-// POST items
-itemsRouter.post('/', async (req: Request, res: Response) => {
     try {
-        const item: Product = req.body;
+        // eslint-disable-next-line prefer-const
+        let it = await repository.find();
+        console.log(it);
 
-        const newItem = await repository.save(item);
-
-        res.status(201).json(newItem);
-    } catch (e) {
+        // const allPhotos = await items.find()
+        res.render('admin', { list: it, title: 'Danh sách sản phẩm' });
+        // res.status(200).send(items);
+    } catch (e: any) {
         res.status(500).send(e.message);
     }
 });
 
+// POST items
+itemsRouter.post('/add', async (req: Request, res: Response) => {
+    try {
+        const item: Product = req.body;
+        const newItem = await repository.save(item);
+
+        // res.status(201).json(newItem);
+        return res.redirect('/');
+    } catch (e) {
+        return res.status(500).send(e.message);
+    }
+});
+
+// POST items: edit
+itemsRouter.post('/edit/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+
+    try {
+        // eslint-disable-next-line prefer-const
+        let item: Product = { id: id, ...req.body };
+
+        await repository.save(item);
+        return res.redirect('/');
+    } catch (e) {
+        return res.status(500).send(e.message);
+    }
+});
+
 // PUT items/:id
-// itemsRouter.put("/:id", async (req: Request, res: Response) => {
+// itemsRouter.put("/edit/:id", async (req: Request, res: Response) => {
 //     const id: number = parseInt(req.params.id, 10);
 
 //     try {
@@ -58,14 +81,16 @@ itemsRouter.post('/', async (req: Request, res: Response) => {
 
 //       if (existingItem) {
 //         const updatedItem = await ItemService.update(id, itemUpdate);
-//         return res.status(200).json(updatedItem);
+//         // return res.status(200).json(updatedItem);
+//         return res.redirect("/");
 //       }
 
 //       const newItem = await ItemService.create(itemUpdate);
 
-//       res.status(201).json(newItem);
+//       // res.status(201).json(newItem);
+//       return res.redirect("/");
 //     } catch (e) {
-//       res.status(500).send(e.message);
+//       return res.status(500).send(e.message);
 //     }
 //   });
 
@@ -82,18 +107,35 @@ itemsRouter.delete('/:id', async (req: Request, res: Response) => {
 });
 
 // GET items/:id
-itemsRouter.get('/:id', async (req: Request, res: Response) => {
+itemsRouter.get('/add_product', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-
     try {
+        // if(!isNaN(id)) {
+        // const item = await repository.find({where:{id:id}});
+        //   if (item) {
+        //     return res.status(200).send(item);
+        //   }
+        // }
+        // if (req.params.id ! == "add") {
+        res.render('add_product');
+        // }
+        // else if (req.params.id ! == "edit") {
+        //   res.render("items/edit");
+        // }
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+// GET items/:id
+itemsRouter.get('/edit_product/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    try {
+        // if(!isNaN(id)) {
         const item = await repository.find({ where: { id: id } });
 
-        if (item) {
-            return res.status(200).send(item);
-        }
-
-        res.status(404).send('item not found');
-    } catch (e) {
+        res.render('edit_product', { item: item });
+    } catch (e: any) {
         res.status(500).send(e.message);
     }
 });
