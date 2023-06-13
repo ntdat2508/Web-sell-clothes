@@ -27,6 +27,7 @@ const app = express();
  */
 app.use(helmet());
 app.use(cors());
+<<<<<<< HEAD
 app.use('/', itemsRouter);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views/items'));
@@ -36,6 +37,17 @@ app.use(express.urlencoded({ extended: true }));
 //layouts
 app.use(layouts);
 app.set('layout', 'layouts/default');
+=======
+app.use(express.urlencoded());
+app.use(express.json());
+app.use('/', itemsRouter);
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views/items'));
+app.use('/', express.static(path.join(__dirname, '../public')));
+
+app.use(layouts);
+
+>>>>>>> 882fbc92a2d9d52a8a7aab72ad5d369308468959
 app.use(errorHandler);
 app.use(notFoundHandler);
 
