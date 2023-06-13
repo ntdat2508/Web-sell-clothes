@@ -22,23 +22,20 @@ if (!process.env.PORT) {
 const PORT: number = parseInt(process.env.PORT as string, 10);
 
 const app = express();
-
 /**
  *  App Configuration
  */
 app.use(helmet());
 app.use(cors());
-app.use(express.json());
 app.use('/', itemsRouter);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views/items'));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json()); //for parsing application/json
 app.use(express.urlencoded({ extended: true }));
-
+//layouts
 app.use(layouts);
 app.set('layout', 'layouts/default');
-
 app.use(errorHandler);
 app.use(notFoundHandler);
 

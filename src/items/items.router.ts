@@ -25,13 +25,13 @@ const repository = AppDataSource.getRepository(Product);
 
 // GET items
 itemsRouter.get('/admin', async (req: Request, res: Response) => {
-    res.render('dashboard_addprd');
+    res.render('dashboard_addprd', { title: 'admin' });
 });
 itemsRouter.get('/', async (req: Request, res: Response) => {
-    res.render('admin');
+    res.render('admin', { title: 'admin' });
 });
 itemsRouter.get('/them', async (req: Request, res: Response) => {
-    res.render('themsp');
+    res.render('themsp', { title: 'thêm sản phẩm' });
 });
 
 // POST items
