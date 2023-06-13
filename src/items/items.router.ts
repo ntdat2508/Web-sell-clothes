@@ -8,6 +8,7 @@ import { BaseItem, Item } from './item.interface';
 import { AppDataSource } from '../data-source';
 import { Product } from '../entity/product';
 import { title } from 'process';
+import expressEjsLayouts from 'express-ejs-layouts';
 /**
  * Router Definition
  */
@@ -25,28 +26,23 @@ const repository = AppDataSource.getRepository(Product);
  */
 
 // GET items
-itemsRouter.get('/admin', async (req: Request, res: Response) => {
-    res.render('dashboard_addprd', { title: 'admin' });
-});
-itemsRouter.get('/', async (req: Request, res: Response) => {
-<<<<<<< HEAD
-    res.render('admin', { title: 'admin' });
-});
-itemsRouter.get('/them', async (req: Request, res: Response) => {
-    res.render('themsp', { title: 'thêm sản phẩm' });
-});
+// itemsRouter.get('/admin', async (req: Request, res: Response) => {
+//     res.render('dashboard_addprd');
+// });
+
+// itemsRouter.get('/', async (req: Request, res: Response) => {
+//     res.render('layout');
+// });
 
 // POST items
-itemsRouter.post('/', async (req: Request, res: Response) => {
-=======
->>>>>>> 882fbc92a2d9d52a8a7aab72ad5d369308468959
+itemsRouter.get('/', async (req: Request, res: Response) => {
     try {
         // eslint-disable-next-line prefer-const
         let it = await repository.find();
-        console.log(it);
+        // console.log(it);
 
         // const allPhotos = await items.find()
-        res.render('admin', { list: it, title: 'Danh sách sản phẩm' });
+        res.render('admin', { list: it, title: 'Danh sách sản phẩm', layout:'layouts/layout' });
         // res.status(200).send(items);
     } catch (e: any) {
         res.status(500).send(e.message);
@@ -81,30 +77,6 @@ itemsRouter.post('/edit/:id', async (req: Request, res: Response) => {
     }
 });
 
-// PUT items/:id
-// itemsRouter.put("/edit/:id", async (req: Request, res: Response) => {
-//     const id: number = parseInt(req.params.id, 10);
-
-//     try {
-//       const itemUpdate: Item = req.body;
-
-//       const existingItem: Item = await ItemService.find(id);
-
-//       if (existingItem) {
-//         const updatedItem = await ItemService.update(id, itemUpdate);
-//         // return res.status(200).json(updatedItem);
-//         return res.redirect("/");
-//       }
-
-//       const newItem = await ItemService.create(itemUpdate);
-
-//       // res.status(201).json(newItem);
-//       return res.redirect("/");
-//     } catch (e) {
-//       return res.status(500).send(e.message);
-//     }
-//   });
-
 // DELETE items/:id
 itemsRouter.delete('/:id', async (req: Request, res: Response) => {
     try {
@@ -121,18 +93,7 @@ itemsRouter.delete('/:id', async (req: Request, res: Response) => {
 itemsRouter.get('/add_product', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
-        // if(!isNaN(id)) {
-        // const item = await repository.find({where:{id:id}});
-        //   if (item) {
-        //     return res.status(200).send(item);
-        //   }
-        // }
-        // if (req.params.id ! == "add") {
-        res.render('add_product');
-        // }
-        // else if (req.params.id ! == "edit") {
-        //   res.render("items/edit");
-        // }
+        res.render('add_product',{ layout:'layouts/crud' });
     } catch (e: any) {
         res.status(500).send(e.message);
     }
@@ -142,10 +103,9 @@ itemsRouter.get('/add_product', async (req: Request, res: Response) => {
 itemsRouter.get('/edit_product/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
-        // if(!isNaN(id)) {
         const item = await repository.find({ where: { id: id } });
 
-        res.render('edit_product', { item: item });
+        res.render('edit_product', { item: item ,layout:'layouts/crud'});
     } catch (e: any) {
         res.status(500).send(e.message);
     }
