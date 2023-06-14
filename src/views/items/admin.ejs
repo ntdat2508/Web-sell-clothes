@@ -31,7 +31,7 @@
                             
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table text-center">
                                         <thead class="bg-light">
                                             <tr class="border-0">
                                                 <th class="border-0">Hình ảnh</th>
@@ -73,7 +73,8 @@
                                                     >
                                                         Sửa</a
                                                     >
-                                                    <button type="" class="btn btn-outline-danger">Xóa</button>
+                                                    <a href="prd_detail/<%= p.id %>" class="btn btn-outline-danger">Chi tiết</a>
+                                                    <a href="delete/<%= p.id %>" class="btn btn-outline-danger">Xóa</a>
                                                 </td>
                                             </tr>
                                             <% } %>

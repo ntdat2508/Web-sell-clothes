@@ -33,7 +33,9 @@ const repository = AppDataSource.getRepository(Product);
 // itemsRouter.get('/', async (req: Request, res: Response) => {
 //     res.render('layout');
 // });
-
+itemsRouter.get('/detail', async (req: Request, res: Response) => {
+    res.render('prd_detail', {layout:'layouts/layout'  });
+});
 // POST items
 itemsRouter.get('/', async (req: Request, res: Response) => {
     try {
@@ -77,13 +79,29 @@ itemsRouter.post('/edit/:id', async (req: Request, res: Response) => {
     }
 });
 
+
+
+// // GET items/:id
+// itemsRouter.get('/prd_detail/:id', async (req: Request, res: Response) => {
+//     const id: number = parseInt(req.params.id, 10);
+//     try {
+//         const item = await repository.findOne({ where: { id: id } });
+
+//         res.render('prd_detail', { item: item, layout: 'layouts/layout' });
+//     } catch (e: any) {
+//         res.status(500).send(e.message);
+//     }
+// });
+
+
+
 // DELETE items/:id
-itemsRouter.delete('/:id', async (req: Request, res: Response) => {
+itemsRouter.delete('delete/:id', async (req: Request, res: Response) => {
     try {
         const id: number = parseInt(req.params.id, 10);
         await repository.delete(id);
 
-        res.sendStatus(204);
+        return res.redirect('/');
     } catch (e) {
         res.status(500).send(e.message);
     }
@@ -103,9 +121,9 @@ itemsRouter.get('/add_product', async (req: Request, res: Response) => {
 itemsRouter.get('/edit_product/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
-        const item = await repository.find({ where: { id: id } });
+        const item = await repository.findOne({ where: { id: id } });
 
-        res.render('edit_product', { item: item ,layout:'layouts/crud'});
+        res.render('edit_product', { item: item, layout: 'layouts/crud' });
     } catch (e: any) {
         res.status(500).send(e.message);
     }

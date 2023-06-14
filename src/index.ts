@@ -32,7 +32,7 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 //
 app.set('views', path.join(__dirname, 'views/items'));
-
+app.use('/', express.static(path.join(__dirname, '../public')));
 app.use(helmet());
 app.use(cors());
 app.use(express.urlencoded());
@@ -41,7 +41,7 @@ app.use('/', itemsRouter);
 
 // app.set('/', 'layouts/layout');
 
-app.use('/', express.static(path.join(__dirname, '../public')));
+
 
 app.use(errorHandler);
 app.use(notFoundHandler);
