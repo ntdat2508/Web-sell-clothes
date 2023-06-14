@@ -48,17 +48,18 @@
                                             <% for (let p of list) {%>
 
                                             <tr>
+                                                <td><%= p.id %></td>
                                                 <td>
                                                     <div class="m-r-10">
                                                         <img
-                                                            src="img/Bottom/<%= p.image %>"
+                                                            src="img\product\<%= p.image %>"
                                                             alt="user"
                                                             class="rounded"
                                                             width="45"
                                                         />
                                                     </div>
                                                 </td>
-                                                <td><%= p.id %></td>
+                                                
                                                 <td><%= p.name %></td>
                                                 <td><%= p.category %></td>
                                                 <td><%= p.quantity %></td>
@@ -74,10 +75,10 @@
                                                         Sửa</a
                                                     >
                                                     <a href="prd_detail/<%= p.id %>" class="btn btn-outline-danger">Chi tiết</a>
-                                                    <a href="delete/<%= p.id %>" class="btn btn-outline-danger">Xóa</a>
+                                                    <a href="delete/<%= p.id %> " class="btn btn-outline-success">Xóa</a>
                                                 </td>
                                             </tr>
-                                            <% } %>
+                                           <% } %>
                                         </tbody>
                                     </table>
                                 </div>

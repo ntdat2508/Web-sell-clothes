@@ -4,6 +4,7 @@
 import path from 'path';
 import * as dotenv from 'dotenv';
 import express from 'express';
+import multer from 'multer';
 import cors from 'cors';
 import helmet from 'helmet';
 import { itemsRouter } from './items/items.router';
@@ -28,20 +29,20 @@ const app = express();
 //setlayouts
 app.use(expressLayouts);
 // app.set('layout','layouts/layout');
+
+//multer
+
+
 //view ejs
 app.set('view engine', 'ejs');
 //
 app.set('views', path.join(__dirname, 'views/items'));
-app.use('/', express.static(path.join(__dirname, '../public')));
+app.use('/', express.static(path.join(__dirname, '/public')));
 app.use(helmet());
 app.use(cors());
 app.use(express.urlencoded());
 app.use(express.json());
 app.use('/', itemsRouter);
-
-// app.set('/', 'layouts/layout');
-
-
 
 app.use(errorHandler);
 app.use(notFoundHandler);

@@ -1,11 +1,14 @@
 <div class="panel-body">
-    <form method="post" id="MyForm" action="/add">
-        <div class="input-group mb-3">
-            <label class="input-group-text" for="form-control">Ảnh sản phẩm: </label>
-            <input type="file" id="img-upload" class="form-control" required name="image" />
-            <img id="output" width="0px" />
-        </div>
-
+    <form method="post" id="MyForm" action="/add" enctype="multipart/form-data">
+        <div class="input-group form-group">
+            <label for="file" class="input-group-text">Ảnh sản phẩm: </label>
+              <input
+                name="image"
+                type="file"
+                id="file"
+                class="form-control ps-0 form-control-line"
+              />
+          </div>
         <div class="input-group mb-3">
             <label class="input-group-text" for="form-control">Tên sản phẩm: </label>
             <input type="text" class="form-control" name="name" />
