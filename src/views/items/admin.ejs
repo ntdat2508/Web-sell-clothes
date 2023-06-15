@@ -46,22 +46,22 @@
                                         </thead>
                                         <tbody>
                                             <% for (let p of list) {%>
-
                                             <tr>
                                                 <td><%= p.id %></td>
                                                 <td>
                                                     <div class="m-r-10">
                                                         <img
-                                                            src="img\product\<%= p.image %>"
+                                                            src="img/product/<%= p.image %>"
                                                             alt="user"
                                                             class="rounded"
                                                             width="45"
                                                         />
                                                     </div>
                                                 </td>
-                                                
                                                 <td><%= p.name %></td>
-                                                <td><%= p.category %></td>
+                                            
+                                                <td><%= categories[0] %></td>
+                                          
                                                 <td><%= p.quantity %></td>
                                                 <td><%= p.price %> VND</td>
                                                 <td><%= p.description %></td>

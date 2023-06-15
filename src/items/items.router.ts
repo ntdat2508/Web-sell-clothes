@@ -7,6 +7,7 @@ import * as ItemService from './items.service';
 import { BaseItem, Item } from './item.interface';
 import { AppDataSource } from '../data-source';
 import { Product } from '../entity/product';
+import { Category } from '../entity/category';
 import { title } from 'process';
 import multer from 'multer';
 import path, { join } from 'path';
@@ -21,7 +22,8 @@ AppDataSource.initialize()
     .catch((error) => console.log('Loi' + error));
 
 export const itemsRouter = express.Router();
-const repository = AppDataSource.getRepository(Product);
+const repositoryPrd = AppDataSource.getRepository(Product);
+const repositoryCat = AppDataSource.getRepository(Category);
 
 /**
  * Controller Definitions
@@ -38,36 +40,28 @@ var storage = multer.diskStorage({
   var upload = multer({
     storage:storage
   })
-// GET items
-// itemsRouter.get('/admin', async (req: Request, res: Response) => {
-//     res.render('dashboard_addprd');
-// });
-
-// itemsRouter.get('/', async (req: Request, res: Response) => {
-//     res.render('layout');
-// });
-// itemsRouter.get('/detail', async (req: Request, res: Response) => {
-//     res.render('prd_detail', {layout:'layouts/layout'  });
-// });
+//product
 // POST items
 itemsRouter.get('/', async (req: Request, res: Response) => {
   
     try {
-        // eslint-disable-next-line prefer-const
-        let it = await repository.find();
-        // console.log(it);
-        // const allPhotos = await items.find()
-        res.render('admin', { list: it, title: 'Danh sách sản phẩm', layout:'layouts/layout' });
-        // res.status(200).send(items);
+        const products = await AppDataSource.createQueryBuilder(Product, 'product')
+        .leftJoinAndSelect(Category, "category", "product.categoryID = category.id")
+        .printSql()
+        .getMany();
+        res.render('admin', { list: products, title: 'Danh sách sản phẩm', layout:'layouts/layout' });
+    
     } catch (e: any) {
         res.status(500).send(e.message);
     }
 });
 
-// POST items
+// // POST items
 itemsRouter.post('/add',upload.single('image') ,async (req: Request, res: Response) => {
- 
+    const categoryId:number = parseInt(req.body.category, 10)
     try {
+        const category = await repositoryCat.findOneOrFail({ where: { id: categoryId } });
+        // Lấy danh mục từ database bằng ID được chọn trong form
         const addItem = await AppDataSource
     .createQueryBuilder()
     .insert()
@@ -75,11 +69,12 @@ itemsRouter.post('/add',upload.single('image') ,async (req: Request, res: Respon
     .values({
         name: req.body.name,
         description: req.body.description,
-        category: req.body.category,
         quantity:req.body.quantity,
         price: req.body.price,
-        image: req.file.filename
+        image: req.file.filename,
+        Category: { id: category.id }
     })
+
     .execute()
         return res.redirect('/');
     } catch (e) {
@@ -116,7 +111,7 @@ itemsRouter.post('/edit/:id',upload.single('image'), async (req: Request, res: R
 itemsRouter.get('/prd_detail/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
-        const item = await repository.findOne({ where: { id: id } });
+        const item = await repositoryPrd.findOne({ where: { id: id } });
 
         res.render('prd_detail', { item: item, layout: 'layouts/layout' });
     } catch (e: any) {
@@ -130,21 +125,21 @@ itemsRouter.get('/prd_detail/:id', async (req: Request, res: Response) => {
 itemsRouter.get('/delete/:id', async (req: Request, res: Response) => {
     try {
       const id: number = parseInt(req.params.id, 10);
-      const item = await repository.findOne({ 
+      const item = await repositoryPrd.findOne({ 
         where: { id: id }  })
         // Kiểm tra xem sản phẩm có tồn tại hay không
-      await repository.delete(id);
+      await repositoryPrd.delete(id);
       // Hiển thị trang xác nhận xóa sản phẩm
       
         // Giảm ID của các bản ghi khác đi 1
-        await repository.createQueryBuilder()
+        await repositoryPrd.createQueryBuilder()
             .update(item)
             .set({ id: () => "id - 1" })
             .where("id > :id", { id: id })
             .execute();
-            const count = await repository.count();
+            const count = await repositoryPrd.count();
             if (count === 0) {
-              await repository.query("ALTER table product AUTO_INCREMENT = 1");
+              await repositoryPrd.query("ALTER table product AUTO_INCREMENT = 1");
             }
        res.redirect('/');
    } catch (e) {
@@ -156,7 +151,9 @@ itemsRouter.get('/delete/:id', async (req: Request, res: Response) => {
 itemsRouter.get('/add_product', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
-        res.render('add_product',{ layout:'layouts/crud' });
+        const categories= await repositoryCat.find();
+        
+        res.render('add_product',{ categories:categories,layout:'layouts/crud' });
     } catch (e: any) {
         res.status(500).send(e.message);
     }
@@ -166,10 +163,15 @@ itemsRouter.get('/add_product', async (req: Request, res: Response) => {
 itemsRouter.get('/edit_product/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
-        const item = await repository.findOne({ where: { id: id } });
+        let item = await repositoryPrd.findOne({ where: { id: id } });
 
         res.render('edit_product', { item: item, layout: 'layouts/crud' });
     } catch (e: any) {
         res.status(500).send(e.message);
     }
 });
+
+
+
+
+//category
