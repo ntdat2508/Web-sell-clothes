@@ -87,6 +87,7 @@ itemsRouter.post('/edit/:id',upload.single('image'), async (req: Request, res: R
     const categoryId:number = parseInt(req.body.category, 10)
     try {
         const category = await repositoryCat.findOneOrFail({ where: { id: categoryId } });
+        const item = await repositoryPrd.findOneOrFail({where:{id:id}});
         const updatedItem = await AppDataSource
         .createQueryBuilder()
         .update(Product)
@@ -96,7 +97,7 @@ itemsRouter.post('/edit/:id',upload.single('image'), async (req: Request, res: R
             Category: { id: category.id },
             quantity:req.body.quantity,
             price: req.body.price,
-            image: req.file.filename
+            image: req.file ? req.file.filename : item.image
         })
         .where('id = :id',{id:id}).execute();
         return res.redirect('/admin');
