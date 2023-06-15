@@ -2,6 +2,7 @@
  * Required External Modules and Interfaces
  */
 import express from 'express';
+
 import { Request, Response } from 'express';
 import * as ItemService from './items.service';
 import { BaseItem, Item } from './item.interface';
@@ -45,10 +46,9 @@ var storage = multer.diskStorage({
 itemsRouter.get('/', async (req: Request, res: Response) => {
   
     try {
-        const products = await AppDataSource.createQueryBuilder(Product, 'product')
-        .leftJoinAndSelect(Category, "category", "product.categoryID = category.id")
-        .printSql()
-        .getMany();
+        const products = await repositoryPrd.manager.find(Product, {
+            relations: ['Category'],
+          });
         res.render('admin', { list: products, title: 'Danh sách sản phẩm', layout:'layouts/layout' });
     
     } catch (e: any) {
@@ -72,7 +72,7 @@ itemsRouter.post('/add',upload.single('image') ,async (req: Request, res: Respon
         quantity:req.body.quantity,
         price: req.body.price,
         image: req.file.filename,
-        Category: { id: category.id }
+
     })
 
     .execute()
@@ -85,15 +85,16 @@ itemsRouter.post('/add',upload.single('image') ,async (req: Request, res: Respon
 // POST items: edit
 itemsRouter.post('/edit/:id',upload.single('image'), async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-
+    const categoryId:number = parseInt(req.body.category, 10)
     try {
+        const category = await repositoryCat.findOneOrFail({ where: { id: categoryId } });
         const updatedItem = await AppDataSource
         .createQueryBuilder()
         .update(Product)
         .set({ 
             name: req.body.name,
             description: req.body.description,
-            category: req.body.category,
+            Category: { id: category.id },
             quantity:req.body.quantity,
             price: req.body.price,
             image: req.file.filename
@@ -112,7 +113,7 @@ itemsRouter.get('/prd_detail/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
         const item = await repositoryPrd.findOne({ where: { id: id } });
-
+       
         res.render('prd_detail', { item: item, layout: 'layouts/layout' });
     } catch (e: any) {
         res.status(500).send(e.message);
@@ -163,9 +164,13 @@ itemsRouter.get('/add_product', async (req: Request, res: Response) => {
 itemsRouter.get('/edit_product/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
-        let item = await repositoryPrd.findOne({ where: { id: id } });
+        // let item = await repositoryPrd.findOne({ where: { id: id } });
+        const categories= await repositoryCat.find();
+        const item = await repositoryPrd.manager.findOne(Product,{where:{id:id},
+            relations: ['Category'],
+          });
 
-        res.render('edit_product', { item: item, layout: 'layouts/crud' });
+        res.render('edit_product', { item: item,categories:categories, layout: 'layouts/crud' });
     } catch (e: any) {
         res.status(500).send(e.message);
     }

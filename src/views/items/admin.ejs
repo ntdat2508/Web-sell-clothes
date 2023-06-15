@@ -34,8 +34,8 @@
                                     <table class="table text-center">
                                         <thead class="bg-light">
                                             <tr class="border-0">
-                                                <th class="border-0">Hình ảnh</th>
                                                 <th class="border-0">Mã sản phẩm</th>
+                                                <th class="border-0">Hình ảnh</th>
                                                 <th class="border-0">Tên sản phẩm</th>
                                                 <th class="border-0">Danh mục sản phẩm</th>
                                                 <th class="border-0">Số lượng</th>
@@ -59,9 +59,7 @@
                                                     </div>
                                                 </td>
                                                 <td><%= p.name %></td>
-                                            
-                                                <td><%= categories[0] %></td>
-                                          
+                                                <td><%= p.Category.name %></td>
                                                 <td><%= p.quantity %></td>
                                                 <td><%= p.price %> VND</td>
                                                 <td><%= p.description %></td>

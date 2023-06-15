@@ -7,6 +7,7 @@
                 type="file"
                 id="file"
                 class="form-control ps-0 form-control-line"
+                required
               />
           </div>
         <div class="input-group mb-3">
@@ -17,11 +18,9 @@
         <div class="input-group mb-3">
             <label class="input-group-text" for="form-control">Tên danh mục: </label>
             <select class="form-control" name="category">
-                <option value="Z-BOT CAPSULE">Z-BOT CAPSULE</option>
-                <option value="YOUNG/ WILD N' TRIPPY">YOUNG/ WILD N' TRIPPY</option>
-                <option value="TOP">TOP</option>
-                <option value="BOTTOM">BOTTOM</option>
-                <option value="ACCESSORY">ACCESSORY</option>
+                <% for (let category of categories) { %>
+                    <option value="<%= category.id %>" <%= item.Category.id == category.id ? 'selected' : '' %>><%= category.name %></option>
+                <% } %>
             </select>
         </div>
 
