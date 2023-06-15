@@ -43,8 +43,7 @@ var storage = multer.diskStorage({
   })
 //product
 // POST items
-itemsRouter.get('/', async (req: Request, res: Response) => {
-  
+itemsRouter.get('/admin', async (req: Request, res: Response) => {
     try {
         const products = await repositoryPrd.manager.find(Product, {
             relations: ['Category'],
@@ -72,11 +71,11 @@ itemsRouter.post('/add',upload.single('image') ,async (req: Request, res: Respon
         quantity:req.body.quantity,
         price: req.body.price,
         image: req.file.filename,
-
+        Category: { id: category.id },
     })
 
     .execute()
-        return res.redirect('/');
+        return res.redirect('/admin');
     } catch (e) {
         return res.status(500).send(e.message);
     }
@@ -100,7 +99,7 @@ itemsRouter.post('/edit/:id',upload.single('image'), async (req: Request, res: R
             image: req.file.filename
         })
         .where('id = :id',{id:id}).execute();
-        return res.redirect('/');
+        return res.redirect('/admin');
     } catch (e) {
         return res.status(500).send(e.message);
     }
@@ -108,13 +107,15 @@ itemsRouter.post('/edit/:id',upload.single('image'), async (req: Request, res: R
 
 
 
-// GET items/:id
+// GET items/:id //detail
 itemsRouter.get('/prd_detail/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
-        const item = await repositoryPrd.findOne({ where: { id: id } });
-       
-        res.render('prd_detail', { item: item, layout: 'layouts/layout' });
+       const item = await repositoryPrd.manager.findOne(Product,{where:{id:id},
+            relations: ['Category'],
+          });
+
+        res.render('prd_detail', { item: item, layout: 'layouts/layout'});
     } catch (e: any) {
         res.status(500).send(e.message);
     }
@@ -142,7 +143,7 @@ itemsRouter.get('/delete/:id', async (req: Request, res: Response) => {
             if (count === 0) {
               await repositoryPrd.query("ALTER table product AUTO_INCREMENT = 1");
             }
-       res.redirect('/');
+       res.redirect('/admin');
    } catch (e) {
       res.status(500).send(e.message);
     }

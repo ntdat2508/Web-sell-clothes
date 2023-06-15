@@ -45,7 +45,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% for (let p of list) {%>
+                                            <% for(let p of list) {%>
                                             <tr>
                                                 <td><%= p.id %></td>
                                                 <td>
@@ -59,7 +59,7 @@
                                                     </div>
                                                 </td>
                                                 <td><%= p.name %></td>
-                                                <td><%= p.Category.name %></td>
+                                                <td><%= p.Category ? p.Category.name : null %>
                                                 <td><%= p.quantity %></td>
                                                 <td><%= p.price %> VND</td>
                                                 <td><%= p.description %></td>

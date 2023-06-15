@@ -1,8 +1,3 @@
-<!doctype html>
-<html lang="en">
-
- 
-
         <div class="dashboard-wrapper">
             <div class="dashboard-ecommerce">
                 <div class="container-fluid dashboard-content ">
@@ -12,12 +7,12 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Product Single </h2>
+                                <h2 class="pageheader-title">Product details </h2>
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Product Single</li>
+                                            <li class="breadcrumb-item active" aria-current="page">Product detail</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -31,17 +26,19 @@
                         <div class="row mt-5 ">
                           <div class="col-md-6 col-12 pe-4">
                             <div class="row mb-5 slider-for">
-                              <img src="assets/images/eco-product-img-2.png" alt="" width="100%">
-                           
+                              <img src="/img/product/<%= item.image %>" alt="" width="100%">
                             </div>
-                           
                           </div>
                           <div class="col-md-6 col-12 mt-md-0 mt-5">
                             <div>
-                              <h3>Z-BOT APOCALYPSE T-SHIRT</h3>
+                              <h3><%= item.name %></h3>
+                             
                             </div>
                             <div class="mt-3">
-                              <p class="fs-4">Giá: <span class="fs-4 fw-normal">299.999</span><sup class="fs-6">đ</sup></p>
+                              <p class="fs-4">Giá: <span class="fs-4 fw-normal"><%= item.price %></span><sup class="fs-6">đ</sup></p>
+                            </div>
+                            <div class="mt-3">
+                              <p class="">Danh mục: <span class="fw-normal"><%= item.Category.name %></span></p>
                             </div>
                             <div>
                               <p class="" style="color: #ccc;">Tình trạng: <span class="text-danger">Còn hàng</span></p>
@@ -53,7 +50,7 @@
                               <div class="col-3 " role="group" aria-label="Basic checkbox toggle button group">
                                 <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
                                 <label style="border: 1px solid #ccc; width: 5rem; border-radius: 0 !important;"
-                                  class="btn btn-outline-dark px-0" for="btncheck1"><img src="assets/images/eco-product-img-2.png" alt=""
+                                  class="btn btn-outline-dark px-0" for="btncheck1"><img src="/img/yellow-orange-color-solid-background-1920x1080.png" alt=""
                                     width="30px" height="30px"> color</label>
                               </div>
                             </div>
@@ -79,33 +76,31 @@
                               </div>
                               <div class="col-6">
                                 <div style="border:1px solid #ccc; width: fit-content;">
-                                  <button onclick="dec()" class="btn px-1 py-1">-</button>
-                                  <input style="width:3rem ;" class="btn px-2 py-1" name="number" type="text" readonly value="0">
-                                  <button onclick="inc()" class="btn px-1 py-1">+</button>
+                                    <input type="text" name="quantity" disabled value="<%= item.quantity %>">
                                 </div>
                               </div>
                             </div>
                             <div class="mt-4">
-                              <a class="btn btn-danger col-8" href="#">Mua ngay</a>
+                              <!-- <a class="btn btn-danger col-8" href="#"></a> -->
                             </div>
                             <div class="mt-3">
-                              <img src="../img/prd_detail/z-bot-apocalypse-t-shirt.webp" alt="" width="100%">
+                              <img src="/img/prd_detail/z-bot-apocalypse-t-shirt.webp" alt="" width="100%">
                             </div>
                             <div class="mt-2">
                               <p style="font-size: 0.8rem;">Gọi đặt mua: <a class="text-danger" href="tel:058660 8660">058660 8660</a>
                                 (miễn phí 8:30 - 18:00).</p>
                             </div>
                             <div class="px-0">
-                              <div class="mb-3 d-flex align-items-center"><img src="../img/prd_detail/policy_images_2.svg" alt=""
+                              <div class="mb-3 d-flex align-items-center"><img src="/img/prd_detail/policy_images_2.svg" alt=""
                                   width="6%">
                                 <p style="font-size: 0.8rem ; " class="fw-normal mb-0 ms-2">MIỄN PHÍ VẬN CHUYỂN VỚI ĐƠN HÀNG <strong>từ
                                     500.000Đ</strong></p>
                               </div>
-                              <div class="mb-3 d-flex  align-items-center"><img src="../img/prd_detail/policy_images_3.svg" alt=""
+                              <div class="mb-3 d-flex  align-items-center"><img src="/img/prd_detail/policy_images_3.svg" alt=""
                                   width="6%">
                                 <p style="font-size: 0.8rem ; " class="fw-normal mb-0 ms-2">BẢO HÀNH DO LỖI NHÀ SẢN XUẤT</p>
                               </div>
-                              <div class="d-flex  align-items-center"><img src="../img/prd_detail/policy_images_4.svg" alt="" width="6%">
+                              <div class="d-flex  align-items-center"><img src="/img/prd_detail/policy_images_4.svg" alt="" width="6%">
                                 <p style="font-size: 0.8rem ; " class="fw-normal mb-0 ms-2">CAM KẾT <strong>100% CHÍNH HÃNG</strong></p>
                               </div>
                             </div>
@@ -117,9 +112,6 @@
                               <button class="nav-link active text-dark fw-bold" id="nav-home-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Mô
                                 tả</button>
-                              <button class="nav-link text-dark fw-bold" id="nav-profile-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-                                aria-selected="false">Chính sách đổi trả</button>
                             </div>
                           </nav>
                           <div class="tab-content mt-4" id="nav-tabContent">
@@ -128,34 +120,10 @@
                               <p>Chi tiết sản phẩm:</p>
                               <ul class="px-0">
                                 <li class="mb-2 fw-normal">
-                                  Vải cotton 2 chiều mềm mịn
-                                </li>
-                                <li class="mb-2 fw-normal">
-                                  Dáng xuông rộng
-                                </li>
-                                <li class="mb-2 fw-normal">
-                                  Mặt trước: hình in Graphic nhân vật Z-Bot với tone đỏ
-                                </li>
-                                <li class="mb-2 fw-normal">
-                                  Sử dụng công nghệ in lưới chất lượng cao, bền, màu sắc tươi sáng.
+                                  <%= item.description %>
                                 </li>
                               </ul>
                             </div>
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                              <p>1. Tất cả các sản phẩm đã mua sẽ không được hoàn trả bằng tiền mặt.</p>
-                              <p>2. Yêu cầu sản phẩm:</p>
-                              <ul class="px-0">
-                                <li class="mb-2 fw-normal">
-                                  - Sản phẩm còn mới, nguyên tag, chưa sử dụng, sửa chữa hay giặt, là trong vòng 7 ngày kể từ ngày nhận
-                                  hàng.
-                                </li>
-                                <li class="mb-2 fw-normal">
-                                  - Sản phẩm được mua nguyên giá, không áp dụng hình thức khuyến mại, giảm giá. Các sản phẩm được mua
-                                  trong chương trình khuyến mãi giảm giá sẽ không được đổi trả.
-                                </li>
-                              </ul>
-                            </div>
-                  
                           </div>
                           <!-- Tabs content -->
                         </div>
