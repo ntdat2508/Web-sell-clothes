@@ -9,6 +9,7 @@ import { BaseItem, Item } from './item.interface';
 import { AppDataSource } from '../data-source';
 import { Product } from '../entity/product';
 import { Category } from '../entity/category';
+import { Order } from '../entity/order';
 import { title } from 'process';
 import multer from 'multer';
 import path, { join } from 'path';
@@ -26,7 +27,7 @@ AppDataSource.initialize()
 export const itemsRouter = express.Router();
 const repositoryPrd = AppDataSource.getRepository(Product);
 const repositoryCat = AppDataSource.getRepository(Category);
-
+const repositoryOrd = AppDataSource.getRepository(Order)
 /**
  * Controller Definitions
  */
@@ -376,6 +377,139 @@ itemsRouter.get('/edit_category/:id', async (req: Request, res: Response) => {
         const cate = await repositoryCat.findOne({ where: { id: id } });
 
         res.render('Categories_admin/edit_category', { cate: cate,layout: 'layouts/crud'  });
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+//cart
+
+
+
+
+
+
+
+
+
+// Đơn hàng
+// GET items
+itemsRouter.get('/order_admin', async (req: Request, res: Response) => {
+    try {
+        const orders = await repositoryOrd.find({
+            relations: {
+                Products: true,
+            },
+        });
+        res.render('Orders_admin/order', { list: orders, title: 'Danh sách đơn hàng', layout: 'layouts/layout' });
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+// // POST items
+itemsRouter.post('/add_ord', async (req: Request, res: Response) => {
+    try {
+        const addItem = await AppDataSource.createQueryBuilder()
+            .insert()
+            .into(Order)
+            .values({
+                name: req.body.name,
+                status: req.body.status,
+                costumer: req.body.costumer,
+                address: req.body.address,
+                phone: req.body.phone,
+                date: req.body.date,
+            })
+            .execute();
+        return res.redirect('/order_admin');
+    } catch (e) {
+        return res.status(500).send(e.message);
+    }
+});
+
+// POST items: edit
+itemsRouter.post('/edit_ord/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    const categoryId: number = parseInt(req.body.category, 10);
+    try {
+        const category = await repositoryCat.findOneOrFail({ where: { id: categoryId } });
+        const item = await repositoryPrd.findOneOrFail({ where: { id: id } });
+        const updatedItem = await AppDataSource.createQueryBuilder()
+            .update(Product)
+            .set({
+                name: req.body.name,
+                description: req.body.description,
+                Category: { id: category.id },
+                quantity: req.body.quantity,
+                price: req.body.price,
+                image: req.file ? req.file.filename : item.image,
+            })
+            .where('id = :id', { id: id })
+            .execute();
+        return res.redirect('/order_admin');
+    } catch (e) {
+        return res.status(500).send(e.message);
+    }
+});
+
+// GET items/:id //detail
+itemsRouter.get('/prd_detail/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    try {
+        const item = await repositoryPrd.manager.findOne(Product, { where: { id: id }, relations: ['Category'] });
+
+        res.render('prd_detail', { item: item, layout: 'layouts/layout' });
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+// DELETE items/:id
+itemsRouter.get('/delete_ord/:id', async (req: Request, res: Response) => {
+    try {
+        const id: number = parseInt(req.params.id, 10);
+        const item = await repositoryOrd.findOne({
+            where: { id: id },
+        });
+        // Kiểm tra xem sản phẩm có tồn tại hay không
+        await repositoryOrd.delete(id);
+        // Hiển thị trang xác nhận xóa sản phẩm
+
+        // Giảm ID của các bản ghi khác đi 1
+        await repositoryOrd
+            .createQueryBuilder()
+            .update(item)
+            .set({ id: () => 'id - 1' })
+            .where('id > :id', { id: id })
+            .execute();
+        const count = await repositoryOrd.count();
+        if (count === 0) {
+            await repositoryOrd.query('ALTER table order AUTO_INCREMENT = 1');
+        }
+        res.redirect('/order_admin');
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+});
+
+// GET add order
+itemsRouter.get('/add_order', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    try {
+        const orders = await repositoryOrd.find();
+        res.render('Orders_admin/add_order', { layout: 'layouts/crud' });
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+// GET edit order
+itemsRouter.get('/edit_order/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    try {
+        const item = await repositoryOrd.findOne({ where: { id: id } });
+        let statuss: string[] = ["Đang chuẩn bị", "Đang xử lý","Đang giao","Đã huỷ"];
+        res.render('Orders_admin/edit_order', { item: item, statuss:statuss ,layout: 'layouts/crud' });
     } catch (e: any) {
         res.status(500).send(e.message);
     }
