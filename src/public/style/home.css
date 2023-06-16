@@ -315,3 +315,8 @@ a.btn.btn-outline-light.custom_button_viewmore.btn-cart {
 #logged{
     display: none;
 }
+
+.whprd{
+    max-width: 480px;
+    max-height: 480px;
+}

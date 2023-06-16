@@ -1,0 +1,82 @@
+<div class="dashboard-wrapper">
+    <div class="dashboard-ecommerce">
+        <div class="container-fluid dashboard-content">
+            <!-- ============================================================== -->
+            <!-- pageheader  -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-header">
+                        <div class="page-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Category</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ecommerce-widget">
+                <div class="row">
+                    <!-- recent orders  -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12 " > 
+                        <div class="card">
+                            <div class="row card-body py-0" > 
+                                <h5 class=" col-md-10">Category List </h5>
+                                <a href="add_category" class="btn btn-outline-success col-md-2"><p class="">Thêm</p></a>
+                            </div>
+                            
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="bg-light">
+                                            <tr class="border-0">
+                                                <th class="border-0">Mã danh mục</th>
+                                                <th class="border-0">Ảnh sự kiện</th>
+                                                <th class="border-0">Tên danh mục</th>
+                                                <th class="border-0">Đường dẫn</th>
+                                                <th class="border-0">Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for (let p of list) {%>
+
+                                            <tr>
+                                                <td><%= p.id %></td>
+                                                <td>
+                                                    <div class="m-r-10">
+                                                        <img
+                                                            src="/img/category/<%= p.image %>"
+                                                            alt="user"
+                                                            class="rounded"
+                                                            width="45"
+                                                        />
+                                                    </div>
+                                                <td><%= p.name %></td>
+                                                <td><%= p.subname %></td>
+                                                <td>
+                                                    <a
+                                                        href="edit_category/<%= p.id%>"
+                                                        class="btn btn-outline-dark"
+                                                        style="margin-left: 0px !important"
+                                                        id="save_btn"
+                                                    >
+                                                        Sửa</a>
+                                                    <a href="delete_cate/<%= p.id %> " class="btn btn-outline-success">Xóa</a>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

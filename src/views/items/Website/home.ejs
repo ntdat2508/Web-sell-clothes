@@ -1,0 +1,234 @@
+ <!-- Banner slide -->
+ <div class="container-fluid bg-banner">
+  <div class="row">
+    <div class="col-md-12 col-lg-12 px-0">
+      <div class="carousel-inner banner-autoplay" role="listbox">
+        <div class="carousel-item active ">
+          <img src="/img/slider_1.webp" alt="" width="100%">
+        </div>
+        <div class="carousel-item">
+          <img src="/img/slider_2.webp" alt="" width="100%">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End banner slide -->
+<!-- NEW arrival -->
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="title-content text-center">
+              <h3><a href="#" title="NEW ARRIVAL">NEW ARRIVAL</a> </h3>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row autoplay">
+          <!-- Product -->
+          <% for (let p of list) { %>
+            
+          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
+            <div class="item-product">
+              <div class="img-product">
+                <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
+              </div>
+            </div>
+            <div class="info-product text-center">
+              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"> </p>
+              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
+              <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
+            </div>
+            <div class="d-grid">
+              <a class="btn btn-outline-dark" href="#" role="button">Chi tiết</a>
+           </div>
+          </div>
+          <% }%>
+        </div>
+      </div>
+      <!-- <div class="btn btn-dark button_view_all">Xem NEW ARRIVAL </div> -->
+      <div class="button_viewmore text-center">
+        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="../product_page/zbot_capsule.html" role="button">XEM TẤT CẢ NEW ARRIVAL</a>
+     </div>
+        <!-- <button class="button_view_all">XEM TẤT CẢ NEW ARRIVAL</button> -->
+    </div>
+    <!-- Top -->
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="title-content text-center">
+              <h3><a href="" title="TOP">TOP</a> </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row autoplay">
+          <!-- Product -->
+          <% for (let p of list) { %>
+            <% if (p.Category.name === 'top') { %>
+          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
+            <div class="item-product">
+              <div class="img-product">
+                <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
+              </div>
+            </div>
+            <div class="info-product text-center">
+              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"> </p>
+              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
+              <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
+            </div>
+            <div class="d-grid">
+              <a class="btn btn-outline-dark" href="#" role="button">Chi tiết</a>
+           </div>
+          </div>
+          <% }} %>
+        </div>
+      </div>
+      <!--  -->
+      <div class="button_viewmore text-center">
+        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="#" role="button">XEM TẤT CẢ TOP</a>
+     </div>
+    </div>
+    <!-- Bottom -->
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="title-content text-center">
+              <h3><a href="#" title="BOTTOM">BOTTOM</a> </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row autoplay">
+          <!-- Product -->
+          <% for (let p of list) { %>
+            <% if (p.Category.subname === 'bottom') { %>
+          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
+            <div class="item-product">
+              <div class="img-product">
+                <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
+              </div>
+            </div>
+            <div class="info-product text-center">
+              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"> </p>
+              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
+              <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
+            </div>
+            <div class="d-grid">
+              <a class="btn btn-outline-dark" href="#" role="button">Chi tiết</a>
+           </div>
+          </div>
+          <% }} %>
+      </div>
+      <!--  -->
+      <div class="button_viewmore text-center">
+        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="#" role="button">XEM TẤT CẢ BOTTOM</a>
+     </div>
+    </div>
+  </div>
+    <!-- Accessory -->
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="title-content text-center">
+              <h3><a href="#" title="ACCESSORY">ACCESSORY</a> </h3>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row autoplay">
+          <!-- Product -->
+          <% for (let p of list) { %>
+            <% if (p.Category.subname === 'accessory') { %>
+          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
+            <div class="item-product">
+              <div class="img-product">
+                <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
+              </div>
+            </div>
+            <div class="info-product text-center">
+              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"> </p>
+              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
+              <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
+            </div>
+            <div class="d-grid">
+              <a class="btn btn-outline-dark" href="#" role="button">Chi tiết</a>
+           </div>
+          </div>
+          <% }} %>
+        </div>
+      </div>
+      <!--  -->
+      <div class="button_viewmore text-center">
+        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="#" role="button">XEM TẤT CẢ ACCESSORY</a>
+     </div>
+    </div>
+    
+    <!--Utilities-->
+    <div class="container">
+      <hr class="mx-5" style="height:2px;color:gray">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-center">
+            
+            <h3 class="text-dark fw-bold my-4" href="#">TẠI SAO NÊN CHỌN SẢN PHẨM TỪ CLOWNZ?</h3>
+          </div>
+        </div>
+      </div>
+      <div class="row border-bottom border-dark"> 
+        <div class="col-4 border-end border-dark">
+          <div class="text text-center text-success">
+            <i class="bi bi-telephone-forward fs-4"></i>
+            <p>Đổi trả cực dễ<br>chỉ cần Số điện thoại</p>
+          </div>
+        </div>  
+        <div class="col-4 border-end border-dark">
+          <div class="text text-center text-success">
+            <i class="bi bi-truck fs-3"></i>
+            <p>Miễn phí vận chuyển<br>cho đơn hàng từ 200k</p>
+          </div>
+        </div>  
+        <div class="col-4">
+          <div class="text text-center text-success">
+            <i class="bi bi-recycle fs-3"></i>
+            <p>60 ngày đổi trả vì bất kì lí do gì</p>
+          </div>
+        </div>  
+    </div>
+    <div class="row"> 
+      <div class="col-4 border-end border-dark">
+        <div class="text text-center mt-2 text-success">
+          <i class="bi bi-telephone-inbound fs-4"></i>
+          <p>Hotline 06969696969 <br> hỗ trợ từ 8h00 - 22h00 mỗi ngày</p>
+        </div>
+      </div>  
+      <div class="col-4 border-end border-dark">
+        <div class="text text-center mt-2 text-success">
+          <i class="bi bi-stopwatch fs-4"></i>
+          <p>Đến tận nơi nhận hàng trả <br>hoàn tiền trong vòng 24h</p>
+        </div>
+      </div>  
+      <div class="col-4">
+        <div class="text text-center mt-2 text-success">
+          <i class="bi bi-box2 fs-4"></i>
+          <p>Giao hàng nhanh toàn quốc</p>
+        </div>
+      </div>  
+  </div>
+  <hr class="mx-5 my-5" style="height:2px;color:gray">
+    </div>
+
+      <!-- Banner end -->
+        <img class="rounded mx-auto d-block" src="img/banner-end.jpg" width="100%" alt="">
+    <!-- footer --> 
+   
