@@ -1,0 +1,51 @@
+  <div class="fix-spacing" style="height:135px;">
+
+  </div>
+  <!-- content -->
+  <div class="">
+    <div class="container-breadcrumb">
+      <div class="container">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item fw-light"><a href="../home/index.html">Trang chủ</a></li>
+          <li class="breadcrumb-item active text-danger" aria-current="page">Đăng nhập tài khoản</li>
+        </ul>
+      </div>
+    </div>
+    <div id="login">
+      <div class="container mt-4">
+        <div class="text-center">
+          <h1 class="">
+            Đăng Nhập Tài Khoản
+          </h1>
+          <p class="fw-light">Nếu chưa có tài khoản vui lòng đăng ký tại đây</p>
+        </div>
+        <div class="social-login d-flex justify-content-center">
+          <a class="text-end me-2" href=""><img src="../img/social-login/fb-btn.svg" alt="facebook" width="128px"
+              height="36px"></a>
+          <a class="text-start ms-2" href=""><img src="../img/social-login/gp-btn.svg" alt="google" width="128px"
+              height="36px"></a>
+        </div>
+        <form class="form-login mx-5" onsubmit="login()">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required
+              placeholder="điền email của bạn" value="">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Mật Khẩu <span class="text-danger">*</span></label>
+            <input type="password" class="form-control" id="password" required placeholder="điền mật khẩu" value="">
+          </div>
+          <p id="errorlogin" class="mb-3 fs-6 text-danger"></p>
+          <div class="text-center mt-5">
+            <button type="submit" class="btn btn-outline-light custom_button_viewmore px-5 py-2">Đăng Nhập</button>
+          </div>
+          <p class="text-center mt-3"><a class="text-danger fw-bold" style="font-size:0.9rem ;"
+              href="../forgotpassword/fg_pw.html">Quên mật khẩu?</a></p>
+          <p class="text-center" style="font-size:0.8rem ;">BẠN CHƯA CÓ TÀI KHOẢN. ĐĂNG KÝ <a class=" text-danger"
+              href="../signup/signup.html">TẠI ĐÂY.</a></p>
+        </form>
+      </div>
+    </div>
+    <!-- quên mật khẩu -->
+  </div>
+  <!-- endcontent -->

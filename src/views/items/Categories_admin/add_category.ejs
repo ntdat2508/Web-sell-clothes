@@ -1,0 +1,24 @@
+<div class="panel-body">
+    <form method="post" id="MyForm" action="/add_cate" enctype="multipart/form-data">
+        <div class="input-group form-group">
+            <label for="file" class="input-group-text">Ảnh sự kiện: </label>
+              <input
+                name="image"
+                type="file"
+                id="file"
+                class="form-control ps-0 form-control-line"
+                required
+              />
+          </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="form-control">Tên danh mục: </label>
+            <input type="text" class="form-control" name="name" />
+        </div>
+        
+        <div class="form-group input-group mt-3">
+            <button type="submit" class="btn btn-outline-dark" style="margin-left: 0px !important">
+                Thêm danh mục 
+            </button>
+        </div>
+    </form>
+</div>

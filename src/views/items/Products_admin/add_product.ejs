@@ -1,0 +1,48 @@
+<div class="panel-body">
+    <form method="post" id="MyForm" action="/add" enctype="multipart/form-data">
+        <div class="input-group form-group">
+            <label for="file" class="input-group-text">Ảnh sản phẩm: </label>
+              <input
+                name="image"
+                type="file"
+                id="file"
+                class="form-control ps-0 form-control-line"
+                required
+              />
+          </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="form-control">Tên sản phẩm: </label>
+            <input type="text" class="form-control" name="name" />
+        </div>
+
+        <div class="input-group mb-3"> 
+            <label class="input-group-text" for="form-control">Tên danh mục: </label>
+            <select class="form-control" name="category" required>
+                    <option selected>Chọn danh mục</option>
+                    <% for (let category of categories) { %>
+                        <option value="<%= category.id %>"><%= category.name %></option>
+                      <% } %>
+            </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="form-control">Giá: </label>
+            <input type="text" id="price" class="form-control" name="price" />
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="form-control">Số lượng: </label>
+            <input type="text" class="form-control" name="quantity" />
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="form-control">Mô tả: </label>
+            <input type="text" class="form-control" name="description" />
+        </div>
+
+        <div class="form-group input-group mt-3">
+            <button type="submit" class="btn btn-outline-dark" style="margin-left: 0px !important">
+                Thêm sản phẩm
+            </button>
+        </div>
+    </form>
+</div>

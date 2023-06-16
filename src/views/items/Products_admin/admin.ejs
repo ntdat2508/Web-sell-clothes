@@ -1,0 +1,90 @@
+<div class="dashboard-wrapper">
+    <div class="dashboard-ecommerce">
+        <div class="container-fluid dashboard-content">
+            <!-- ============================================================== -->
+            <!-- pageheader  -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-header">
+                        <div class="page-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Product</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ecommerce-widget">
+                <div class="row">
+                    <!-- recent orders  -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="row card-body py-0" > 
+                                <h5 class=" col-md-10">Recent Orders</h5>
+                                <a href="add_product" class="btn btn-outline-success col-md-2"><p class="">Thêm</p></a>
+                            </div>
+                            
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table text-center">
+                                        <thead class="bg-light">
+                                            <tr class="border-0">
+                                                <th class="border-0">Mã sản phẩm</th>
+                                                <th class="border-0">Hình ảnh</th>
+                                                <th class="border-0">Tên sản phẩm</th>
+                                                <th class="border-0">Danh mục sản phẩm</th>
+                                                <th class="border-0">Số lượng</th>
+                                                <th class="border-0">Giá</th>
+                                                <th class="border-0">Mô tả</th>
+                                                <th class="border-0">Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for(let p of list) {%>
+                                            <tr>
+                                                <td><%= p.id %></td>
+                                                <td>
+                                                    <div class="m-r-10">
+                                                        <img
+                                                            src="img/product/<%= p.image %>"
+                                                            alt="user"
+                                                            class="rounded"
+                                                            width="45"
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td><%= p.name %></td>
+                                                <td><%= p.Category ? p.Category.name : null %>
+                                                <td><%= p.quantity %></td>
+                                                <td><%= p.price %> VND</td>
+                                                <td><%= p.description %></td>
+                                                <td>
+                                                    <a
+                                                        href="edit_product/<%= p.id %>"
+                                                        class="btn btn-outline-dark"
+                                                        style="margin-left: 0px !important"
+                                                        id="save_btn"
+                                                    >
+                                                        Sửa</a
+                                                    >
+                                                    <a href="prd_detail/<%= p.id %>" class="btn btn-outline-danger">Chi tiết</a>
+                                                    <a href="delete/<%= p.id %> " class="btn btn-outline-success">Xóa</a>
+                                                </td>
+                                            </tr>
+                                           <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
