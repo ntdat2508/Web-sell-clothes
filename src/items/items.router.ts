@@ -97,6 +97,7 @@ itemsRouter.get('/product_detail_wbs/:id', async (req: Request, res: Response) =
     }
 });
 
+//gio hàng
 itemsRouter.get('/cart', async (req: Request, res: Response) => {
     try {
         res.render('Website/shopping_cart', { layout: 'layouts/layoutHome'});
