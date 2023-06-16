@@ -78,6 +78,27 @@ itemsRouter.get('/categories/:category', async (req: Request, res: Response) => 
     }
 });
 
+//product_detail_get
+itemsRouter.get('/product_detail_wbs/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    try {
+       const item = await repositoryPrd.manager.findOne(Product,{where:{id:id},
+            relations: ['Category'],
+          });
+          const items = await repositoryPrd.manager.find(Product,{
+            relations: ['Category'], where:{
+                Category:{name:item.Category.name}
+            }
+          });
+
+        res.render('Website/product_detail_wbs', { item: item,items:items, layout: 'layouts/layoutHome'});
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+
+
 
 
 

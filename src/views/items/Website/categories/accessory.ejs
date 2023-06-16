@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="info-product text-center">
-                <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf">aaa</p>
+                <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"><%= p.Category.name %></p>
                 <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;">
                     <%=p.name %>
                 </h3>
@@ -17,7 +17,7 @@
                 </p>
             </div>
             <div class="d-grid">
-                <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="#" role="button">Chi tiết</a>
+                <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
             </div>
         </div>
         <% } %>

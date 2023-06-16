@@ -7,9 +7,9 @@
     <div class="container-breadcrumb">
       <div class="container">
         <ul id="breadcrumID" class="breadcrumb">
-          <li class="breadcrumb-item fw-light"><a href="../account/account.html">Trang chủ</a></li>
-          <li class="breadcrumb-item fw-light"><a href="../product_page/zbot_capsule.html">Z-BOT CAPSULE</a></li>
-          <li class="breadcrumb-item active text-danger" aria-current="page">Z-bot Apocalypse T-shirt</li>
+          <li class="breadcrumb-item fw-light"><a href="/">Trang chủ</a></li>
+          <li class="breadcrumb-item fw-light"><a href="/categories/<%= item.Category.subname %>"><%= item.Category.name %></a></li>
+          <li class="breadcrumb-item active text-danger" aria-current="page"><%= item.name %></li>
         </ul>
       </div>
     </div>
@@ -17,27 +17,19 @@
       <div class="row mt-5 ">
         <div class="col-md-6 col-12 pe-4">
           <div class="row mb-5 slider-for">
-            <img src="../img/capsule/136a9053-2.png" alt="" width="100%">
-            <img src="../img/prd_detail/6 (1).webp" alt="">
-            <img src="../img/prd_detail/7 (1).webp" alt="">
-            <img src="../img/prd_detail//922a9666 (1).webp" alt="">
-          </div>
-          <div class="slider-nav">
-            <div class="px-2"><img src="../img/prd_detail/136a9053-2.webp" alt="" width="100%"></div>
-            <div class="px-2"><img src="../img/prd_detail/6.webp" alt="" width="100%"></div>
-            <div class="px-2"><img src="../img/prd_detail/7.webp" alt="" width="100%"></div>
-            <div class="px-2"><img src="../img/prd_detail/922a9666.webp" alt="" width="100%"></div>
+            <img src="/img/product/<%= item.image %>" alt="" width="100%">
+            
           </div>
         </div>
         <div class="col-md-6 col-12 mt-md-0 mt-5">
           <div>
-            <h3>Z-BOT APOCALYPSE T-SHIRT</h3>
+            <h3><%= item.name %></h3>
           </div>
           <div class="mt-3">
-            <p class="fs-4">Giá: <span class="fs-4 fw-normal">299.999</span><sup class="fs-6">đ</sup></p>
+            <p class="fs-4">Giá: <span class="fs-4 fw-normal"><%= item.price %></span><sup class="fs-6">đ</sup></p>
           </div>
           <div>
-            <p class="" style="color: #ccc;">Tình trạng: <span class="text-danger">Còn hàng</span></p>
+            <p class="" style="color: #ccc;">Tình trạng: <span class="text-danger"><%= item.quantity> 0 ?"Còn hàng":"hết hàng" %></span></p>
           </div>
           <div class="row">
             <div class="col-2">
@@ -46,8 +38,8 @@
             <div class="col-1 " role="group" aria-label="Basic checkbox toggle button group">
               <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
               <label style="border: 1px solid #ccc; width: 6rem; border-radius: 0 !important;"
-                class="btn btn-outline-dark px-0" for="btncheck1"><img src="../img/capsule/136a9053-2.png" alt=""
-                  width="30px" height="30px"> Beige</label>
+                class="btn btn-outline-dark px-0" for="btncheck1"><img src="/img/yellow-orange-color-solid-background-1920x1080.png" alt=""
+                  width="30px" height="30px">Vàng</label>
             </div>
           </div>
           <div class="row  mt-3 ">
@@ -72,33 +64,33 @@
             </div>
             <div class="col-6">
               <div style="border:1px solid #ccc; width: fit-content;">
-                <button onclick="dec()" class="btn px-1 py-1">-</button>
+                <button class="btn px-1 py-1">-</button>
                 <input style="width:3rem ;" class="btn px-2 py-1" name="number" type="text" readonly value="0">
-                <button onclick="inc()" class="btn px-1 py-1">+</button>
+                <button class="btn px-1 py-1">+</button>
               </div>
             </div>
           </div>
           <div class="mt-4">
-            <a class="btn btn-danger col-8" href="../shopping_cart/shopping_cart.html">Mua ngay</a>
+            <a class="btn btn-danger col-8" href="#">Mua ngay</a>
           </div>
           <div class="mt-3">
-            <img src="../img/prd_detail/z-bot-apocalypse-t-shirt.webp" alt="" width="100%">
+            <img src="/img/prd_detail/z-bot-apocalypse-t-shirt.webp" alt="" width="100%">
           </div>
           <div class="mt-2">
             <p style="font-size: 0.8rem;">Gọi đặt mua: <a class="text-danger" href="tel:058660 8660">058660 8660</a>
               (miễn phí 8:30 - 18:00).</p>
           </div>
           <div class="px-0">
-            <div class="mb-3 d-flex align-items-center"><img src="../img/prd_detail/policy_images_2.svg" alt=""
+            <div class="mb-3 d-flex align-items-center"><img src="/img/prd_detail/policy_images_2.svg" alt=""
                 width="6%">
               <p style="font-size: 0.8rem ; " class="fw-normal mb-0 ms-2">MIỄN PHÍ VẬN CHUYỂN VỚI ĐƠN HÀNG <strong>từ
                   500.000Đ</strong></p>
             </div>
-            <div class="mb-3 d-flex  align-items-center"><img src="../img/prd_detail/policy_images_3.svg" alt=""
+            <div class="mb-3 d-flex  align-items-center"><img src="/img/prd_detail/policy_images_3.svg" alt=""
                 width="6%">
               <p style="font-size: 0.8rem ; " class="fw-normal mb-0 ms-2">BẢO HÀNH DO LỖI NHÀ SẢN XUẤT</p>
             </div>
-            <div class="d-flex  align-items-center"><img src="../img/prd_detail/policy_images_4.svg" alt="" width="6%">
+            <div class="d-flex  align-items-center"><img src="/img/prd_detail/policy_images_4.svg" alt="" width="6%">
               <p style="font-size: 0.8rem ; " class="fw-normal mb-0 ms-2">CAM KẾT <strong>100% CHÍNH HÃNG</strong></p>
             </div>
           </div>
@@ -139,97 +131,23 @@
         <h2 class="text-center mb-4">SẢN PHẨM LIÊN QUAN</h2>
         <div class="row autoplay">
           <!-- Product -->
+          <% for(let p of items) {%>
           <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
             <div class="item-product">
               <div class="img-product">
-                <a href="#" title=""><img src="../img/capsule/136a9053-2.png"></a>
+                <a href="#" title=""><img src="/img/product/<%= p.image %>"></a>
               </div>
             </div>
             <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf">TEET & POLO SHIRTS</p>
-              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;">BASIC FOR LIFE</h3>
-              <p class="product-prices" style="font-size: 0.8rem;">299.999 đ</p>
+              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"><%= p.Category.name %></p>
+              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
+              <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
             </div>
             <div class="button_viewmore text-center">
-              <a class="btn btn-outline-light custom_button_viewmore" href="#" role="button">Chi tiết</a>
+              <a class="btn btn-outline-dark" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
            </div>
           </div>
-          
-          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
-            <div class="item-product">
-              <div class="img-product">
-                <a href="#" title=""><img src="../img/capsule/2.png"></a>
-              </div>
-            </div>
-            <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf">TEET & POLO SHIRTS</p>
-              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;">BASIC FOR LIFE</h3>
-              <p class="product-prices" style="font-size: 0.8rem;">299.999 đ</p>
-            </div>
-            <div class="button_viewmore text-center">
-              <a class="btn btn-outline-light custom_button_viewmore" href="#" role="button">Chi tiết</a>
-           </div>
-          </div>
-          
-          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
-            <div class="item-product">
-              <div class="img-product">
-                <a href="#" title=""><img src="../img/capsule/zbotfn5.png"></a>
-              </div>
-            </div>
-            <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf">TEET & POLO SHIRTS</p>
-              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;">BASIC FOR LIFE</h3>
-              <p class="product-prices" style="font-size: 0.8rem;">299.999 đ</p>
-            </div>
-            <div class="button_viewmore text-center">
-              <a class="btn btn-outline-light custom_button_viewmore" href="#" role="button">Chi tiết</a>
-           </div>
-          </div>
-          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
-            <div class="item-product">
-              <div class="img-product">
-                <a href="#" title=""><img src="../img/new arri/cz-0002-jpeg.jpg"></a>
-              </div>
-            </div>
-            <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf">TEET & POLO SHIRTS</p>
-              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;">BASIC FOR LIFE</h3>
-              <p class="product-prices" style="font-size: 0.8rem;">299.999 đ</p>
-            </div>
-            <div class="button_viewmore text-center">
-              <a class="btn btn-outline-light custom_button_viewmore" href="#" role="button">Chi tiết</a>
-           </div>
-          </div>
-          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
-            <div class="item-product">
-              <div class="img-product">
-                <a href="#" title=""><img src="../img/capsule/zbotfn6.png"></a>
-              </div>
-            </div>
-            <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf">TEET & POLO SHIRTS</p>
-              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;">BASIC FOR LIFE</h3>
-              <p class="product-prices" style="font-size: 0.8rem;">299.999 đ</p>
-            </div>
-            <div class="button_viewmore text-center">
-              <a class="btn btn-outline-light custom_button_viewmore" href="#" role="button">Chi tiết</a>
-           </div>
-          </div>
-          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
-            <div class="item-product">
-              <div class="img-product">
-                <a href="#" title=""><img src="../img/new arri/bt1.jpg" ></a>
-              </div>
-            </div>
-            <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf">TEET & POLO SHIRTS</p>
-              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;">BASIC FOR LIFE</h3>
-              <p class="product-prices" style="font-size: 0.8rem;">299.999 đ</p>
-            </div>
-            <div class="button_viewmore text-center">
-              <a class="btn btn-outline-light custom_button_viewmore" href="#" role="button">Chi tiết</a>
-           </div>
+          <% } %>
           </div>
         </div>
       </div>

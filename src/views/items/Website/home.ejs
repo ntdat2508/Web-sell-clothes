@@ -43,7 +43,7 @@
               <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
             </div>
             <div class="d-grid">
-              <a class="btn btn-outline-dark" href="#" role="button">Chi tiết</a>
+              <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
            </div>
           </div>
           <% }%>
@@ -51,7 +51,7 @@
       </div>
       <!-- <div class="btn btn-dark button_view_all">Xem NEW ARRIVAL </div> -->
       <div class="button_viewmore text-center">
-        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="../product_page/zbot_capsule.html" role="button">XEM TẤT CẢ NEW ARRIVAL</a>
+        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="#" role="button">XEM TẤT CẢ NEW ARRIVAL</a>
      </div>
         <!-- <button class="button_view_all">XEM TẤT CẢ NEW ARRIVAL</button> -->
     </div>
@@ -61,7 +61,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="title-content text-center">
-              <h3><a href="" title="TOP">TOP</a> </h3>
+              <h3><a href="/categories/top" title="TOP">TOP</a> </h3>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="row autoplay">
           <!-- Product -->
           <% for (let p of list) { %>
-            <% if (p.Category.name === 'top') { %>
+            <% if (p.Category.subname === 'top') { %>
           <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
             <div class="item-product">
               <div class="img-product">
@@ -78,20 +78,20 @@
               </div>
             </div>
             <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"> </p>
+              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"><%=p.Category.name%> </p>
               <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
               <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
             </div>
             <div class="d-grid">
-              <a class="btn btn-outline-dark" href="#" role="button">Chi tiết</a>
+              <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
            </div>
           </div>
-          <% }} %>
+          <%} }%>
         </div>
       </div>
       <!--  -->
       <div class="button_viewmore text-center">
-        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="#" role="button">XEM TẤT CẢ TOP</a>
+        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="/categories/top" role="button">XEM TẤT CẢ TOP</a>
      </div>
     </div>
     <!-- Bottom -->
@@ -100,7 +100,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="title-content text-center">
-              <h3><a href="#" title="BOTTOM">BOTTOM</a> </h3>
+              <h3><a href="/categories/bottom" title="BOTTOM">BOTTOM</a> </h3>
             </div>
           </div>
         </div>
@@ -117,19 +117,19 @@
               </div>
             </div>
             <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"> </p>
+              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"><%=p.Category.name%> </p>
               <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
               <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
             </div>
             <div class="d-grid">
-              <a class="btn btn-outline-dark" href="#" role="button">Chi tiết</a>
+              <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
            </div>
           </div>
           <% }} %>
       </div>
       <!--  -->
       <div class="button_viewmore text-center">
-        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="#" role="button">XEM TẤT CẢ BOTTOM</a>
+        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="/categories/bottom" role="button">XEM TẤT CẢ BOTTOM</a>
      </div>
     </div>
   </div>
@@ -139,7 +139,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="title-content text-center">
-              <h3><a href="#" title="ACCESSORY">ACCESSORY</a> </h3>
+              <h3><a href="#" title="ACCESSORY">/categories/accessory</a> </h3>
             </div>
             
           </div>
@@ -157,12 +157,12 @@
               </div>
             </div>
             <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"> </p>
+              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"><%=p.Category.name%> </p>
               <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
               <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
             </div>
             <div class="d-grid">
-              <a class="btn btn-outline-dark" href="#" role="button">Chi tiết</a>
+              <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
            </div>
           </div>
           <% }} %>
@@ -170,7 +170,7 @@
       </div>
       <!--  -->
       <div class="button_viewmore text-center">
-        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="#" role="button">XEM TẤT CẢ ACCESSORY</a>
+        <a class="btn btn-outline-light mt-5 custom_button_viewmore" href="/categories/accessory" role="button">XEM TẤT CẢ ACCESSORY</a>
      </div>
     </div>
     

@@ -1,0 +1,56 @@
+    <div class="fix-spacing" style="height:135px;">
+
+    </div>
+    <!-- content -->
+    <div class="">
+        <div class="container-breadcrumb">
+            <div class="container">
+                <ul id="breadcrumID" class="breadcrumb">
+                    <li class="breadcrumb-item fw-light"><a href="../home/index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item active text-danger" aria-current="page">Đăng ký tài khoản</li>
+                </ul>
+            </div>
+        </div>
+        <div id="login">
+            <div class="container mt-4">
+                <div class="text-center">
+                    <h1 class="">
+                        Đăng Ký Tài Khoản
+                    </h1>
+                    <p class="fw-light">Nếu chưa có tài khoản vui lòng đăng ký tại đây</p>
+                </div>
+                <div class="social-login d-flex justify-content-center">
+                    <a class="text-end me-2" href=""><img src="../img/social-login/fb-btn.svg" alt="facebook" width="128px" height="36px"></a>
+                    <a class="text-start ms-2" href=""><img src="../img/social-login/gp-btn.svg" alt="google" width="128px" height="36px"></a>
+                </div>
+                <form class="form-signup mx-5" onsubmit="signup()">
+                    <div class="mb-3">
+                        <label for="firstname" class="form-label">Họ<span id="errorfstname" class="text-danger fs-6">*</span></label>
+                        <input type="text" class="form-control" id="firstname" aria-describedby="emailHelp" required placeholder="điền họ" value="">
+                      </div>
+                      <div class="mb-3">
+                        <label for="lastname" class="form-label">Tên<span id="errorlstname" class="text-danger fs-6">*</span></label>
+                        <input type="text" class="form-control" id="lastname" aria-describedby="emailHelp" required placeholder="điền Tên" value="">
+                      </div>
+                      <div class="mb-3">
+                        <label for="phonenumber" class="form-label">Số điện thoại<span id="errorpnumber" class="text-danger fs-6">*</span></label>
+                        <input type="text" class="form-control" id="phonenumber" aria-describedby="emailHelp" required placeholder="điền số điện thoại" value="">
+                      </div>
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email address <span id="erroremail" class="text-danger fs-6">*</span></label>
+                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required placeholder="điền email của bạn" value="">
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Mật Khẩu <span id="errorpsw" class="text-danger fs-6">*</span></label>
+                      <input type="password" class="form-control" id="password" required placeholder="điền mật khẩu" value="">
+                    </div>
+                    <div class="text-center mt-5">
+                        <button type="submit" class="btn btn-outline-light custom_button_viewmore px-5 py-2" >Tạo Tài Khoản</button>
+                    </div>
+                    <p class="text-center mt-3"><a class="text-danger fw-bold" style="font-size:0.9rem ;" href="../login/login.html">Đăng Nhập</a></p>
+                  </form>
+            </div>
+        </div>
+        <!-- quên mật khẩu -->
+        
+  
