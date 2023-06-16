@@ -97,6 +97,20 @@ itemsRouter.get('/product_detail_wbs/:id', async (req: Request, res: Response) =
     }
 });
 
+itemsRouter.get('/cart', async (req: Request, res: Response) => {
+    try {
+        res.render('Website/shopping_cart', { layout: 'layouts/layoutHome'});
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+
+
+
+
+
+
 
 
 
