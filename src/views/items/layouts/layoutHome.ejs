@@ -93,8 +93,13 @@
                 <li class="nav-item">
                   <a href="#"><span>GIỎ HÀNG</span><i class="bi bi-cart-check-fill"></i></a>
                 </li>
-                <li class="nav-item">
-                  <a href="#" title="Tìm kiếm"><i class="bi bi-search"></i></a>
+                <li class="nav-item form_search">
+                  <a class="" href=""><i class="bi bi-search "></i></a>
+                  <div class="search_div">
+                    <form action="/search_page" method="get" class="">
+                    <input class="form-control me-2" type="search" name="search" onkeydown="if (event.keyCode == 13) this.form.submit()" placeholder="Enter để tìm kiếm" aria-label="Search">
+                  </form>
+                  </div>
                 </li>
                 <li class="nav-item login_icon">
                   <a href="#" title="Đăng nhập"><i class="bi bi-person-circle"></i></a>
@@ -131,6 +136,8 @@
    
     <!--  -->
   <%- body %>
+
+
   <!-- footer --> 
   <footer class="footer">
     <div class="site-footer py-4">

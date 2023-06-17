@@ -28,6 +28,23 @@ li{
     border-bottom: 1px solid #f5f5f5;
     background-color: #fff;
 }
+
+.search_div {
+    width: 700%;
+    position: absolute;
+    top: 80%;
+    right: 10%;
+    z-index: 9999;
+    display: none;
+  }
+  
+  /* Khi hover vào icon, hiển thị ô tìm kiếm */
+  .form_search:hover .search_div {
+    display: block;
+    cursor: pointer;
+    color: #e74c3c;
+  }
+
  /* Nav Mobile */
 .nav__input{
     display: none;
@@ -137,6 +154,7 @@ li{
 .bot-header .nav-item:hover>.dropdown-menu {
     display: block;
 }
+
 /* Navbar_pc */
 .bot-header .dropdown-menu .nav-item-lv2 a{
     text-align: left;
@@ -320,3 +338,67 @@ a.btn.btn-outline-light.custom_button_viewmore.btn-cart {
     max-width: 480px;
     max-height: 480px;
 }
+
+.nonespininput{
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+.nonespininput::-webkit-inner-spin-button, .nonespininput::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;  
+}
+
+.searchbar {
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: #353b48;
+    border-radius: 30px;
+    padding: 10px;
+}
+.search_input {
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color: transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+}
+.searchbar:hover > .search_input {
+    padding: 0 10px;
+    width: 320px;
+    caret-color: red;
+    transition: width 0.4s linear;
+}
+.searchbar:hover > .search_icon {
+    background: white;
+    color: #e74c3c;
+}
+.search_icon {
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+}
+.search_input {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9999;
+    display: none;
+  }
+  
+  /* Khi hover vào icon, hiển thị ô tìm kiếm */
+  .form_search:hover + .search_input {
+    display: block;
+    cursor: pointer;
+    color: #e74c3c;
+  }

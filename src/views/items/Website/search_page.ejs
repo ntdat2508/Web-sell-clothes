@@ -1,0 +1,35 @@
+<div class="fix-spacing" style="height:135px;">
+
+</div>
+
+<div class="container">
+    <div class="row autoplay">
+      <!-- Product --> 
+      
+      <% if(list.length>0) {%>
+      <% for (let p of list) { %>
+        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
+            <div class="item-product">
+              <div class="img-product">
+                <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
+              </div>
+            </div>
+            <div class="info-product text-center">
+              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"> <%= p.Category.name %></p>
+              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
+              <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
+            </div>
+            <div class="d-grid">
+              <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
+           </div>
+          </div>      
+      <% }} else { %>
+        <div class="fix-spacing" style="height:80px;">
+
+        </div>
+        <H3 class="text-secondary mt-4" style="margin-bottom: 80px;">Không có sản phẩm nào có thông tin như vậy</H3>
+      <% } %>
+    </div>
+  </div>
+
+  

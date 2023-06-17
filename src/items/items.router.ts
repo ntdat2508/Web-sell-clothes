@@ -14,6 +14,9 @@ import { title } from 'process';
 import multer from 'multer';
 import path, { join } from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
+import { isArray } from 'util';
+import { type } from 'os';
+import { And, Between, Like } from 'typeorm';
 const unidecode = require('unidecode');
 /**
  * Router Definition
@@ -60,12 +63,24 @@ itemsRouter.get('/', async (req: Request, res: Response) => {
 });
 
 itemsRouter.get('/categories/:category', async (req: Request, res: Response) => {
-    try {
+    try { 
+        let minprice=req.query.filterPricemin;
+        let maxprice=req.query.filterPricemax;
+        let min=0;
+        let max= 2000000000;
+        if (typeof minprice === "string" && typeof maxprice === "string") {
+             min = parseFloat(minprice);
+             max= parseFloat(maxprice);
+        }
+        const sapxep = req.query.sort;
         const categoryName:string = req.params.category.toLowerCase().replace(/[^\w]/g, "_"); //laygiatri duong dan + chuyenthanh chu thuong
         const products = await repositoryPrd.manager.find(Product, {
             relations: ['Category'],  where: { 
-                Category: { subname:categoryName }
-            } 
+            Category: { subname:categoryName },
+            price: Between(min, max)
+            },
+            order: sapxep === "a_z" ? { name: "ASC" } : sapxep === "z_a" ? { name: "DESC" } : sapxep === "thap_cao" ? { price: "ASC" } : { price: "DESC" }
+           
         });
         const categories = await repositoryCat.find();
         const Category = await repositoryCat.findOne({
@@ -73,7 +88,7 @@ itemsRouter.get('/categories/:category', async (req: Request, res: Response) => 
                 subname:categoryName
             }
         });
-        res.render(`Website/categories/${categoryName}`, { list:products ,categories:categories,Category:Category,layout:'./layouts/layoutcategory' });
+        res.render(`Website/categories/${categoryName}`, { list:products ,categories:categories,Category:Category,sapxep:sapxep,layout:'./layouts/layoutcategory' });
     } catch (e: any) {
         res.status(500).send(e.message);
     }
@@ -108,9 +123,24 @@ itemsRouter.get('/cart', async (req: Request, res: Response) => {
 });
 
 
+//search page
 
-
-
+itemsRouter.get('/search_page', async (req: Request, res: Response) => {
+    try {
+        const keyword= req.query.search;
+        
+        const products = await repositoryPrd.manager.find(Product, {
+            relations: ['Category'],where:{
+                name:Like(`%${keyword}%`),
+                description:Like(`%${keyword}%`),
+            }
+          });
+        res.render('Website/search_page', { list:products ,layout:'layouts/layoutHome' });
+    
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
 
 
 

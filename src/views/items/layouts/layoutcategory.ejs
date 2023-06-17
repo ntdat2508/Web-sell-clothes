@@ -60,9 +60,8 @@
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">BOTTOM</a>
                                 </li>
                                 <li class="nav-item dropdown nav-item_mobile">
-                                    <a class="nav-link dropdown-toggle" href="/categories/accessory"
-                                        id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">ACCESSORY</a>
+                                    <a class="nav-link dropdown-toggle" href="/categories/accessory" id="dropdownId"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ACCESSORY</a>
                                 </li>
                                 <li class="nav-item_mobile">
                                     <a href="../login/login.html" title="Đăng nhập">Đăng nhập</a>
@@ -94,9 +93,14 @@
                             <li class="nav-item">
                                 <a href="#"><span>GIỎ HÀNG</span><i class="bi bi-cart-check-fill"></i></a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" title="Tìm kiếm"><i class="bi bi-search"></i></a>
-                            </li>
+                            <li class="nav-item form_search">
+                                <a class="" href=""><i class="bi bi-search "></i></a>
+                                <div class="search_div">
+                                  <form action="/search_page" method="get" class="">
+                                  <input class="form-control me-2" type="search" onkeydown="if (event.keyCode == 13) this.form.submit()" placeholder="Enter để tìm kiếm" aria-label="Search">
+                                </form>
+                                </div>
+                              </li>
                             <li class="nav-item login_icon">
                                 <a href="#" title="Đăng nhập"><i class="bi bi-person-circle"></i></a>
                             </li>
@@ -113,7 +117,8 @@
                             <a href="/categories/z_bot_capsule" title="Z-BOT CAPSULE">Z-BOT CAPSULE</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/categories/young_wild_n_trippy" title="YOUNG/WILD N'TRIPPY">YOUNG/WILD N'TRIPPY</a>
+                            <a href="/categories/young_wild_n_trippy" title="YOUNG/WILD N'TRIPPY">YOUNG/WILD
+                                N'TRIPPY</a>
                         </li>
                         <li class=" nav-item">
                             <a href="/categories/top" title="TOP">TOP</a>
@@ -153,19 +158,19 @@
                         <ul class="p-0">
                             <li class="px-0 ">
                                 <a class="px-0 mb-2 py-0 nav-link fw-normal" style="color:#6F6F6D; font-size: 1rem;"
-                                    href="customer.html">Trang chủ</a>
+                                    href="/">Trang chủ</a>
                             </li>
                             <li class="px-0">
                                 <a class="px-0 mb-2 py-0 nav-link fw-normal" style="color:#6F6F6D; font-size: 1rem;"
-                                    href="customer_cart.html">Giới thiệu</a>
+                                    href="#">Giới thiệu</a>
                             </li>
                             <li class="px-0">
                                 <a class="px-0 mb-2 py-0 nav-link fw-normal" style="color:#6F6F6D; font-size: 1rem;"
-                                    href="change_password.html">Sản phẩm</a>
+                                    href="#">Sản phẩm</a>
                             </li>
                             <li class="px-0 mb-4">
                                 <a class="px-0 mb-2 py-0 nav-link fw-normal" style="color:#6F6F6D; font-size: 1rem;"
-                                    href="address_customer.html">Tin tức</a>
+                                    href="#">Tin tức</a>
                             </li>
                         </ul>
                     </div>
@@ -175,70 +180,15 @@
                     <div>
                         <p class="mb-2">Giá sản phẩm</p>
                         <div class="fw-light fs-6" style="color: #6F6F6D;">
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    Giá dưới 100.000đ
-                                </label>
-                            </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    100.000đ - 200.000đ
-                                </label>
-                            </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    200.000đ - 300.000đ
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="mb-3 mt-4">Loại</p>
-                        <div class="fw-light fs-6" style="color: #6F6F6D;">
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    Tees & Polo shirts
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="mb-3 mt-4">Size</p>
-                        <div class="fw-light fs-6" style="color: #6F6F6D;">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    S
-                                </label>
-                            </div>
-                        </div>
-                        <div class="fw-light fs-6" style="color: #6F6F6D;">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    L
-                                </label>
-                            </div>
-                        </div>
-                        <div class="fw-light fs-6" style="color: #6F6F6D;">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    M
-                                </label>
-                            </div>
-                        </div>
-                        <div class="fw-light fs-6" style="color: #6F6F6D;">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    XL
-                                </label>
-                            </div>
+                            <form action="/categories/<%= Category.subname %>" method="get">
+                                <div class="input-group mt-3" style="margin-bottom:4px">
+                                    <input type="number" value="" min="0" class="form-control nonespininput" placeholder="tối thiểu..." aria-label="" name="filterPricemin">                                   
+                                  </div>
+                                  <div class="input-group mb-3">
+                                    <input type="number" value="" min="0" class="form-control nonespininput" placeholder="tối đa..." aria-label="" name="filterPricemax">
+                                  </div>
+                                  <button type="submit" class="btn btn-outline-info rounded-pill">Lọc</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -247,29 +197,27 @@
                         <div class="form-check form-check-inline">
                             <p>Xếp theo: </p>
                         </div>
-                        <form action="" method="get">
-                        <div class="form-check form-check-inline fw-light " style="font-size:0.9rem ;">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                value="option1" name="q">
-                            <label class="form-check-label" for="inlineRadio1">Tên A-Z</label>
-                        </div>
-                        <div class="form-check form-check-inline fw-light " style="font-size:0.9rem ;">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="option2">
-                            <label class="form-check-label" for="inlineRadio2">Tên Z-A</label>
-                        </div>
-                        <div class="form-check form-check-inline fw-light " style="font-size:0.9rem ;">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                                value="option3">
-                            <label class="form-check-label" for="inlineRadio3">Giá thấp đến cao</label>
-                        </div>
-                        <div class="form-check form-check-inline fw-light " style="font-size:0.9rem ;">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                                value="option3">
-                            <label class="form-check-label" for="inlineRadio3">Giá cao xuống thấp</label>
-                        </div>
-                        <button type="submit" class="btn btn-outline-info rounded-pill">lọc</button>
-                    </form>
+                        <form action="/categories/<%= Category.subname %>" method="get">
+                            <div class="form-check form-check-inline fw-light " style="font-size:0.9rem ;">
+                                <input class="form-check-input" type="radio" id="inlineRadio1" value="a_z" name="sort">
+                                <label class="form-check-label" for="inlineRadio1">Tên A-Z</label>
+                            </div>
+                            <div class="form-check form-check-inline fw-light " style="font-size:0.9rem ;">
+                                <input class="form-check-input" type="radio" id="inlineRadio2" value="z_a" name="sort">
+                                <label class="form-check-label" for="inlineRadio2">Tên Z-A</label>
+                            </div>
+                            <div class="form-check form-check-inline fw-light " style="font-size:0.9rem ;">
+                                <input class="form-check-input" type="radio" id="inlineRadio3" value="thap_cao"
+                                    name="sort">
+                                <label class="form-check-label" for="inlineRadio3">Giá thấp đến cao</label>
+                            </div>
+                            <div class="form-check form-check-inline fw-light " style="font-size:0.9rem ;">
+                                <input class="form-check-input" type="radio" id="inlineRadio3" value="cao_thap"
+                                    name="sort">
+                                <label class="form-check-label" for="inlineRadio3">Giá cao xuống thấp</label>
+                            </div>
+                            <button type="submit" class="btn btn-outline-info rounded-pill">lọc</button>
+                        </form>
                     </div>
                     <!-- Banner -->
 
@@ -395,9 +343,6 @@
         </div>
     </footer>
     <!-- End footer -->
-
-
-
     <!--Icon -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
