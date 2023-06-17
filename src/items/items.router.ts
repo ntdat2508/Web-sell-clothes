@@ -17,6 +17,7 @@ import expressEjsLayouts from 'express-ejs-layouts';
 import { isArray } from 'util';
 import { type } from 'os';
 import { And, Between, Like } from 'typeorm';
+import { count } from 'console';
 const unidecode = require('unidecode');
 /**
  * Router Definition
@@ -55,7 +56,8 @@ itemsRouter.get('/', async (req: Request, res: Response) => {
         const products = await repositoryPrd.manager.find(Product, {
             relations: ['Category'],
           });
-        res.render('Website/home', { list:products ,layout:'layouts/layoutHome' });
+          
+        res.render('Website/home', { list:products,layout:'layouts/layoutHome' });
     
     } catch (e: any) {
         res.status(500).send(e.message);
@@ -157,7 +159,8 @@ itemsRouter.get('/admin', async (req: Request, res: Response) => {
         const products = await repositoryPrd.manager.find(Product, {
             relations: ['Category'],
           });
-        res.render('Products_admin/admin', { list: products, title: 'Danh sách sản phẩm', layout:'layouts/layout' });
+        const dem=0;
+        res.render('Products_admin/admin', { list: products, title: 'Danh sách sản phẩm',dem:dem, layout:'layouts/layout' });
     
     } catch (e: any) {
         res.status(500).send(e.message);
@@ -244,14 +247,9 @@ itemsRouter.get('/delete/:id', async (req: Request, res: Response) => {
       // Hiển thị trang xác nhận xóa sản phẩm
       
         // Giảm ID của các bản ghi khác đi 1
-        await repositoryPrd.createQueryBuilder()
-            .update(item)
-            .set({ id: () => "id - 1" })
-            .where("id > :id", { id: id })
-            .execute();
             const count = await repositoryPrd.count();
             if (count === 0) {
-              await repositoryPrd.query("ALTER table product AUTO_INCREMENT = 1");
+              await repositoryPrd.query("ALTER table product AUTO_INCREMENT = 0");
             }
        res.redirect('/admin');
    } catch (e) {

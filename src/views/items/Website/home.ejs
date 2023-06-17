@@ -29,9 +29,10 @@
       <div class="container">
         <div class="row autoplay">
           <!-- Product -->
+          <% let dem = 0; %>
           <% for (let p of list) { %>
-            
-          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
+            <% if (dem < 8) { %> 
+          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2 mb-4">
             <div class="item-product">
               <div class="img-product">
                 <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
@@ -46,7 +47,8 @@
               <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
            </div>
           </div>
-          <% }%>
+          <% dem++; %>
+          <% }}%>
         </div>
       </div>
       <!-- <div class="btn btn-dark button_view_all">Xem NEW ARRIVAL </div> -->
@@ -69,9 +71,11 @@
       <div class="container">
         <div class="row autoplay">
           <!-- Product -->
+          <% let dt = 0; %>
           <% for (let p of list) { %>
             <% if (p.Category.subname === 'top') { %>
-          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
+              <% if (dt < 4) { %> 
+          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2 mb-4 ">
             <div class="item-product">
               <div class="img-product">
                 <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
@@ -86,7 +90,8 @@
               <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
            </div>
           </div>
-          <%} }%>
+          <% dt++; %>
+          <%} }}%>
         </div>
       </div>
       <!--  -->
@@ -107,25 +112,29 @@
       </div>
       <div class="container">
         <div class="row autoplay">
-          <!-- Product -->
-          <% for (let p of list) { %>
-            <% if (p.Category.subname === 'bottom') { %>
-          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
-            <div class="item-product">
-              <div class="img-product">
-                <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
+            <!-- Product -->
+            <% let db = 0; %>
+            <% for (let p of list) { %>
+              <% if (p.Category.subname === 'bottom') { %>
+                <% if (db < 4) { %> 
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2 mb-4 ">
+              <div class="item-product">
+                <div class="img-product">
+                  <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
+                </div>
               </div>
+              <div class="info-product text-center">
+                <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"><%=p.Category.name%> </p>
+                <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
+                <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
+              </div>
+              <div class="d-grid">
+                <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
+             </div>
             </div>
-            <div class="info-product text-center">
-              <p class="product-single_series fw-normal mt-2 mb-1" style="font-size: 0.8rem; color:#bfbfbf"><%=p.Category.name%> </p>
-              <h3 class="product-card_title m-0 fw-bold" style="font-size: 0.9rem; letter-spacing: 2.4px;"><%=p.name %></h3>
-              <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
-            </div>
-            <div class="d-grid">
-              <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
-           </div>
+            <% db++; %>
+            <%} }}%>
           </div>
-          <% }} %>
       </div>
       <!--  -->
       <div class="button_viewmore text-center">
@@ -139,7 +148,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="title-content text-center">
-              <h3><a href="#" title="ACCESSORY">/categories/accessory</a> </h3>
+              <h3><a href="/categories/accessory" title="ACCESSORY">ACCESSORY</a> </h3>
             </div>
             
           </div>
@@ -148,9 +157,11 @@
       <div class="container">
         <div class="row autoplay">
           <!-- Product -->
+          <% let da = 0; %>
           <% for (let p of list) { %>
             <% if (p.Category.subname === 'accessory') { %>
-          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
+              <% if (da < 4) { %> 
+          <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2 mb-4 ">
             <div class="item-product">
               <div class="img-product">
                 <a href="#" title=""><img src="./img/product/<%=p.image %>"></a>
@@ -165,7 +176,8 @@
               <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
            </div>
           </div>
-          <% }} %>
+          <% da++; %>
+          <%} }}%>
         </div>
       </div>
       <!--  -->

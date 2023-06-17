@@ -268,7 +268,7 @@ li{
 
 .img-product img{
     width: 100%;
-    height: auto;
+    max-height: 246px;
 }
 /* Button xem tất cả */
 .custom_button_viewmore {

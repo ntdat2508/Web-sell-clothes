@@ -63,10 +63,8 @@
               <p>Số lượng: </p>
             </div>
             <div class="col-6">
-              <div style="border:1px solid #ccc; width: fit-content;">
-                <button class="btn px-1 py-1">-</button>
-                <input style="width:3rem ;" class="btn px-2 py-1" name="number" type="text" readonly value="0">
-                <button class="btn px-1 py-1">+</button>
+              <div style="width: fit-content;">
+                <input class="cart-quantity-input col-md-6 col-3 px-0 text-center border border-light-subtle" min="0" type="number" value="1">
               </div>
             </div>
           </div>
@@ -132,7 +130,9 @@
         <h2 class="text-center mb-4">SẢN PHẨM LIÊN QUAN</h2>
         <div class="row autoplay">
           <!-- Product -->
+          <% let dem = 0; %>
           <% for(let p of items) {%>
+            <% if (dem < 4) { %> 
           <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6 px-md-2">
             <div class="item-product">
               <div class="img-product">
@@ -145,10 +145,11 @@
               <p class="product-prices" style="font-size: 0.8rem;"><%=p.price %> đ</p>
             </div>
             <div class="button_viewmore text-center">
-              <a class="btn btn-outline-dark" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
+              <a class="btn btn-outline-light custom_button_viewmore btn-cart" href="/product_detail_wbs/<%= p.id %>" role="button">Chi tiết</a>
            </div>
           </div>
-          <% } %>
+          <% dem++; %>
+          <% }}%>
           </div>
         </div>
       </div>

@@ -34,7 +34,7 @@
                                     <table class="table text-center">
                                         <thead class="bg-light">
                                             <tr class="border-0">
-                                                <th class="border-0">Mã sản phẩm</th>
+                                                <th class="border-0">STT</th>
                                                 <th class="border-0">Hình ảnh</th>
                                                 <th class="border-0">Tên sản phẩm</th>
                                                 <th class="border-0">Danh mục sản phẩm</th>
@@ -47,7 +47,7 @@
                                         <tbody>
                                             <% for(let p of list) {%>
                                             <tr>
-                                                <td><%= p.id %></td>
+                                                <td><%= dem+=1 %></td>
                                                 <td>
                                                     <div class="m-r-10">
                                                         <img
@@ -62,7 +62,7 @@
                                                 <td><%= p.Category ? p.Category.name : null %>
                                                 <td><%= p.quantity %></td>
                                                 <td><%= p.price %> VND</td>
-                                                <td><%= p.description %></td>
+                                                <td><%= p.description.slice(0,24)+"..." %></td>
                                                 <td>
                                                     <a
                                                         href="edit_product/<%= p.id %>"
