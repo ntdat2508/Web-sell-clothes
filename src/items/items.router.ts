@@ -4,20 +4,28 @@
 import express from 'express';
 
 import { Request, Response } from 'express';
+
 import * as ItemService from './items.service';
 import { BaseItem, Item } from './item.interface';
 import { AppDataSource } from '../data-source';
 import { Product } from '../entity/product';
 import { Category } from '../entity/category';
 import { Order } from '../entity/order';
+import { order_products_product } from '../entity/order_products_product';
+import { Cart } from '../entity/Cart';
 import { title } from 'process';
 import multer from 'multer';
+import { Relation } from 'typeorm';
 import path, { join } from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
 import { isArray } from 'util';
 import { type } from 'os';
 import { And, Between, Like } from 'typeorm';
 import { count } from 'console';
+import { User } from '../entity/User';
+import bcrypt from 'bcrypt';
+import moment from 'moment-timezone';
+import { AuthenticatedRequest } from './items.interface';
 const unidecode = require('unidecode');
 /**
  * Router Definition
@@ -31,7 +39,10 @@ AppDataSource.initialize()
 export const itemsRouter = express.Router();
 const repositoryPrd = AppDataSource.getRepository(Product);
 const repositoryCat = AppDataSource.getRepository(Category);
-const repositoryOrd = AppDataSource.getRepository(Order)
+const repositoryOrd = AppDataSource.getRepository(Order);
+const repositoryOrd_detail = AppDataSource.getRepository(order_products_product);
+const repositoryUser = AppDataSource.getRepository(User);
+const repositoryCart = AppDataSource.getRepository(Cart);
 /**
  * Controller Definitions
  */
@@ -64,6 +75,7 @@ itemsRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
+//lọc sản phẩm cate
 itemsRouter.get('/categories/:category', async (req: Request, res: Response) => {
     try { 
         let minprice=req.query.filterPricemin;
@@ -115,6 +127,7 @@ itemsRouter.get('/product_detail_wbs/:id', async (req: Request, res: Response) =
     }
 });
 
+
 //gio hàng
 itemsRouter.get('/cart', async (req: Request, res: Response) => {
     try {
@@ -146,8 +159,238 @@ itemsRouter.get('/search_page', async (req: Request, res: Response) => {
 
 
 
+//mua hàng
+itemsRouter.get('/create_order/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    try {
+          const item = await repositoryPrd.manager.findOne(Product,{
+            relations: ['Category'], where:{
+               id:id
+            }
+          });
+        res.render('Website/create_order_user', { item:item, layout: 'layouts/layoutHome'});
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+//page cam on
+//gio hàng
+itemsRouter.get('/dearcustomer/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    try {
+        const item = await repositoryPrd.manager.findOne(Product,{where:{id:id},
+            relations: ['Category'],
+          });
+          const items = await repositoryPrd.manager.find(Product,{
+            relations: ['Category'], where:{
+                Category:{name:item.Category.name}
+            }
+          });
+        res.render('Website/ThankCustom', { item: item,items:items,layout: 'layouts/layoutHome'});
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
 
 
+
+
+
+//dangnhap dangki
+
+itemsRouter.get('/login', async (req: Request, res: Response) => {
+    try {
+        res.render('Website/Login/login', { layout: 'layouts/layoutHome' });
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+itemsRouter.post('/admin', async (req: Request, res: Response) => {
+    try {
+        const { username, password } = req.body;
+        // Lấy thông tin user từ bảng user
+        const user = await repositoryUser.manager.findOne(User, {
+            where: { username },
+        });
+        if (!user) {
+            // Người dùng không tồn tại
+            return res.send('Tên đăng nhập hoặc mật khẩu không đúng');
+        }
+        // Kiểm tra mật khẩu
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
+        if (!isPasswordMatch) {
+            // Sai mật khẩu
+            return res.send('Tên đăng nhập hoặc mật khẩu không đúng');
+        }
+        // Kiểm tra role của người dùng
+        if (user.role === 'admin') {
+            // Nếu role là admin, chuyển hướng đến trang quản trị
+            const products = await repositoryPrd.manager.find(Product, {
+                relations: ['Category'],
+            });
+            // res.render('Products_admin/admin', {
+            //     list: products,
+            //     title: 'Danh sách sản phẩm',
+            //     layout: 'layouts/layout',
+            // });
+            res.redirect('/admin');
+        } else {
+            const products = await repositoryPrd.manager.find(Product, {
+                relations: ['Category'],
+            });
+            // Nếu role là user, chuyển hướng đến trang chính
+            res.redirect('/');
+        }
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+//Signup
+interface SignupFormErrors {
+    username?: string;
+    email?: string;
+    password?: string;
+    'password-confirmation'?: string;
+}
+
+function validateSignupForm(body: any): SignupFormErrors {
+    const errors: SignupFormErrors = {};
+
+    if (!body.username || body.username.trim().length < 3) {
+        errors.username = 'Username phải dài hơn 3 ký tự';
+    }
+
+    if (!body.email || !/^\S+@\S+\.\S+$/.test(body.email)) {
+        errors.email = 'Email không hợp lệ';
+    }
+
+    if (!body.password || body.password.trim().length < 3) {
+        errors.password = 'Mật khẩu phải dài hơn 3 ký tự';
+    }
+
+    if (body.password !== body['password-confirmation']) {
+        errors['password-confirmation'] = 'Mật khẩu không khớp';
+    }
+
+    return errors;
+}
+
+itemsRouter.get('/signup', async (req: Request, res: Response) => {
+    try {
+        res.render('Website/Login/signup', { layout: 'layouts/layoutHome' });
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+itemsRouter.post('/signup', async (req: Request, res: Response) => {
+    const errors = validateSignupForm(req.body);
+
+    if (Object.keys(errors).length > 0) {
+        res.send({ errors });
+    }
+    try {
+        let salt = bcrypt.genSaltSync(10);
+        let pass_mahoa = bcrypt.hashSync(req.body.password, salt);
+        const addItem = await AppDataSource.createQueryBuilder()
+            .insert()
+            .into(User)
+            .values({
+                username: req.body.username,
+                email: req.body.email,
+                password: pass_mahoa,
+            })
+
+            .execute();
+        return res.redirect('login');
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+
+
+
+//thêm giỏ hàng
+
+itemsRouter.post('/add-to-cart', async (req: AuthenticatedRequest, res: Response) => {
+    try {
+        const productId = req.body.productId;
+        const userId = req.user ? req.user.id : null;
+
+        // Tìm giỏ hàng của người dùng
+        const cart = await repositoryCart.findOne({ where: { user: { id: userId }, product: { id: productId } } });
+        if (!cart) {
+            // Nếu không tìm thấy giỏ hàng, tạo một bản ghi mới
+            const product = await repositoryPrd.findOneOrFail({
+                where: { id: productId },
+            });
+            const user = await repositoryUser.findOneOrFail({ where: { id: userId } });
+            const cartItems = await repositoryCart.createQueryBuilder().insert().into(Cart).values({
+                quantity: 1,
+                productName: product.name,
+                productPrice: product.price,
+                productImage: product.image,
+                userId: user.id,
+                productId: product.id,
+            });
+        } else {
+            // Nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng sản phẩm
+            cart.quantity += 1;
+            await repositoryCart.save(cart);
+        }
+
+        // Chuyển hướng người dùng đến trang giỏ hàng
+        res.redirect('/shopping_cart');
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Đã có lỗi xảy ra' });
+    }
+});
+
+//get shopping cart
+itemsRouter.get('/shopping_cart', async (req: AuthenticatedRequest, res: Response) => {
+    try {
+        const userId = req.user ? req.user.id : null;
+        const cartItems = await repositoryCart.find({ where: { user: { id: userId } } });
+        res.render('Website/shopping_cart', { cartItems: cartItems, layout: 'layouts/layoutHome' });
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
+//item get delete cart
+itemsRouter.get('/delete_cart/:id', async (req: Request, res: Response) => {
+    try {
+        const id: number = parseInt(req.params.id);
+        const cart = await repositoryCart.findOne({
+            where: { id: id },
+        });
+        // Kiểm tra xem sản phẩm có tồn tại hay không
+        await repositoryCart.delete(id);
+        // Hiển thị trang xác nhận xóa sản phẩm
+
+        // Giảm ID của các bản ghi khác đi 1
+        await repositoryCart
+            .createQueryBuilder()
+            .update(cart)
+            .set({ id: () => 'id - 1' })
+            .where('id > :id', { id: id })
+            .execute();
+        const count = await repositoryCart.count();
+        if (count === 0) {
+            await repositoryCart.query('ALTER table category AUTO_INCREMENT = 1');
+        }
+        res.redirect('Website/home');
+    } catch (e) {
+        return res.status(500).send(e.message);
+    }
+});
+
+//end cart
 
 
 //forwebsite
@@ -421,6 +664,7 @@ itemsRouter.get('/edit_category/:id', async (req: Request, res: Response) => {
 
 // Đơn hàng
 // GET items
+
 itemsRouter.get('/order_admin', async (req: Request, res: Response) => {
     try {
         const orders = await repositoryOrd.find({
@@ -434,98 +678,104 @@ itemsRouter.get('/order_admin', async (req: Request, res: Response) => {
     }
 });
 
-// // POST items
-itemsRouter.post('/add_ord', async (req: Request, res: Response) => {
+//taodon
+itemsRouter.post('/add_ord/:id', async (req: Request, res: Response) => {
+    const prdid: number = parseInt(req.params.id, 10);
     try {
+        const productt = await repositoryPrd.findOne({
+            where:{
+                id: prdid
+            }
+        })
+        var madon:string=((req.body.costumer).slice(0,2)+(req.body.phone).toString().slice(-4)+unidecode((req.body.address)).slice(-2)).toUpperCase()
+        const sum:number=productt.price * req.body.quantity_oder;
         const addItem = await AppDataSource.createQueryBuilder()
             .insert()
             .into(Order)
             .values({
-                name: req.body.name,
-                status: req.body.status,
+                name: madon,
+                status: "Chưa xác nhận",
                 costumer: req.body.costumer,
                 address: req.body.address,
                 phone: req.body.phone,
-                date: req.body.date,
+                sumtotal :sum,
             })
             .execute();
-        return res.redirect('/order_admin');
+            const orderId = addItem.identifiers[0].id;
+            const addOrderDetail = await AppDataSource.createQueryBuilder()
+            .insert()
+            .into(order_products_product)
+            .values({
+                orderId:orderId,
+                productId:prdid,
+                name_prd:productt.name,
+                price: productt.price,
+                quantity: req.body.quantity_oder,
+                total :  productt.price * req.body.quantity_oder
+            })
+            .execute();
+            // console.log("req.body: ", req.body);
+            // console.log("Order_detail: ", Order_detail);
+           
+            // console.log("addItem: ", addItem);
+            // console.log("addOrderDetail: ", addOrderDetail);
+            // console.log("addOrderDetail: ", addItem);
+        
+            return res.redirect(`/dearcustomer/${prdid}`);
+   
+     
     } catch (e) {
-        return res.status(500).send(e.message);
+        console.log(e)
+        return res.status(500).send("Lỗi khi thêm dữ liệu vào cơ sở dữ liệu");
     }
 });
 
-// POST items: edit
+//POST items: edit
 itemsRouter.post('/edit_ord/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    const categoryId: number = parseInt(req.body.category, 10);
+    const queryRunner = AppDataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
     try {
-        const category = await repositoryCat.findOneOrFail({ where: { id: categoryId } });
-        const item = await repositoryPrd.findOneOrFail({ where: { id: id } });
-        const updatedItem = await AppDataSource.createQueryBuilder()
-            .update(Product)
-            .set({
-                name: req.body.name,
-                description: req.body.description,
-                Category: { id: category.id },
-                quantity: req.body.quantity,
-                price: req.body.price,
-                image: req.file ? req.file.filename : item.image,
-            })
-            .where('id = :id', { id: id })
-            .execute();
+        // Lấy đối tượng đơn hàng cần xác nhận
+        const order = await repositoryOrd.findOneOrFail({ where: { id: id } });
+
+        // Lấy danh sách sản phẩm trong đơn hàng
+        const productsInOrder = await queryRunner.manager.find(order_products_product, { where: { orderId: id } });
+
+        // Cập nhật số lượng sản phẩm và trừ đi số lượng sản phẩm trong bảng Product tương ứng
+        for (const product of productsInOrder) {
+            const productToUpdate = await repositoryPrd.findOneOrFail({ where: { id: product.productId } });
+            const quantityToUpdate = productToUpdate.quantity - product.quantity;
+            await repositoryPrd.update(product.productId, { quantity: quantityToUpdate });
+        }
+
+        // Cập nhật trạng thái đơn hàng
+        const updatedItem = await queryRunner.manager.update(Order, id, { status: 'Xác nhận' });
+
+        await queryRunner.commitTransaction();
         return res.redirect('/order_admin');
     } catch (e) {
+        await queryRunner.rollbackTransaction();
         return res.status(500).send(e.message);
+    } finally {
+        await queryRunner.release();
     }
 });
+
 
 // GET items/:id //detail
-itemsRouter.get('/prd_detail/:id', async (req: Request, res: Response) => {
-    const id: number = parseInt(req.params.id, 10);
+itemsRouter.get('/ord_detail/:id', async (req: Request, res: Response) => {
+    const orderId: number = parseInt(req.params.id, 10);
     try {
-        const item = await repositoryPrd.manager.findOne(Product, { where: { id: id }, relations: ['Category'] });
-
-        res.render('prd_detail', { item: item, layout: 'layouts/layout' });
-    } catch (e: any) {
-        res.status(500).send(e.message);
-    }
-});
-
-// DELETE items/:id
-itemsRouter.get('/delete_ord/:id', async (req: Request, res: Response) => {
-    try {
-        const id: number = parseInt(req.params.id, 10);
-        const item = await repositoryOrd.findOne({
-            where: { id: id },
+        const item = await repositoryOrd_detail.manager.findOne(order_products_product, {
+            relations: ['product', 'order'],
+            where: {
+                order: { id: orderId },
+            },
         });
-        // Kiểm tra xem sản phẩm có tồn tại hay không
-        await repositoryOrd.delete(id);
-        // Hiển thị trang xác nhận xóa sản phẩm
 
-        // Giảm ID của các bản ghi khác đi 1
-        await repositoryOrd
-            .createQueryBuilder()
-            .update(item)
-            .set({ id: () => 'id - 1' })
-            .where('id > :id', { id: id })
-            .execute();
-        const count = await repositoryOrd.count();
-        if (count === 0) {
-            await repositoryOrd.query('ALTER table order AUTO_INCREMENT = 1');
-        }
-        res.redirect('/order_admin');
-    } catch (e) {
-        res.status(500).send(e.message);
-    }
-});
-
-// GET add order
-itemsRouter.get('/add_order', async (req: Request, res: Response) => {
-    const id: number = parseInt(req.params.id, 10);
-    try {
-        const orders = await repositoryOrd.find();
-        res.render('Orders_admin/add_order', { layout: 'layouts/crud' });
+        res.render('Orders_admin/ord_detail', { item: item, layout: 'layouts/crud' });
     } catch (e: any) {
         res.status(500).send(e.message);
     }
@@ -536,9 +786,39 @@ itemsRouter.get('/edit_order/:id', async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     try {
         const item = await repositoryOrd.findOne({ where: { id: id } });
-        let statuss: string[] = ["Đang chuẩn bị", "Đang xử lý","Đang giao","Đã huỷ"];
-        res.render('Orders_admin/edit_order', { item: item, statuss:statuss ,layout: 'layouts/crud' });
+        let statuss: string[] = ['Chưa xác nhận', 'Xác nhận'];
+        let localdate = moment.utc(item.date).local().format('YYYY-MM-DD');
+        res.render('Orders_admin/edit_order', { localdate, item: item, statuss: statuss, layout: 'layouts/crud' });
     } catch (e: any) {
         res.status(500).send(e.message);
     }
 });
+
+// DELETE items/:id
+itemsRouter.get('/delete_ord/:id', async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    const queryRunner = AppDataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+        // Xóa bản ghi trong bảng order_products_product liên quan đến đơn hàng
+        await queryRunner.manager.delete(order_products_product, { orderId: id });
+
+        // Xóa đơn hàng
+        await queryRunner.manager.delete(Order, id);
+        await queryRunner.commitTransaction();
+        res.redirect('/order_admin');
+    } catch (e) {
+        await queryRunner.rollbackTransaction();
+        res.status(500).send(e.message);
+    } finally {
+        await queryRunner.release();
+    }
+});
+
+
+
+
+
+
+

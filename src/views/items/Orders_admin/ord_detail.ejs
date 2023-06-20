@@ -1,0 +1,29 @@
+<div class="panel-body">
+    <form method="post" id="MyForm" action="/ord_detail/<%= item.id %>" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="form-control">Tên sản phẩm: </label>
+            <input type="text" class="form-control" name="name" value="<%= item.product.name %>" readonly />
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="form-control">Số lượng: </label>
+            <input type="text" class="form-control" name="quantity" value="<%= item.quantity %>" readonly />
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="form-control">Giá: </label>
+            <input type="text" class="form-control" name="price" value="<%= item.price %>" readonly />
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="form-control">Tổng giá: </label>
+            <input type="text" class="form-control" name="total" value="<%= item.total %>" readonly />
+        </div>
+
+        <!-- <div class="form-group input-group mt-3">
+          <button type="submit" class="btn btn-outline-dark" style="margin-left: 0px !important">
+              Cập nhật đơn hàng
+          </button>
+      </div> -->
+    </form>
+</div>

@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinTable, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, JoinTable, ManyToMany, OneToMany} from 'typeorm';
 import { Product } from './product';
-
+import { order_products_product } from './order_products_product';
 @Entity()
 export class Order {
     @PrimaryGeneratedColumn()
@@ -17,9 +17,15 @@ export class Order {
     address: string;
     @Column()
     phone: number;
-    @Column()
+    @Column({ type: 'timestamp'})
     date: Date;
+    @Column()
+    sumtotal: number;
+    
     @ManyToMany(() => Product)
     @JoinTable()
     Products: Product[];
+
+    @OneToMany(() => order_products_product, (order_products_product) => order_products_product.order)
+    order_products_products: order_products_product[];
 }

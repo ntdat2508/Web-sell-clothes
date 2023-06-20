@@ -24,13 +24,6 @@
                     <!-- ============================================================== -->
                     <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
                         <div class="card">
-                            <div class="row card-body py-0">
-                                <h5 class="col-md-10">Quản lý đơn hàng</h5>
-                                <a href="add_order" class="btn btn-outline-success col-md-2"
-                                    ><p class="">Tạo đơn hàng mới</p></a
-                                >
-                            </div>
-
                             <div class="card-body p-0">
                                 <div class="table-responsive">
                                     <table class="table text-center">
@@ -55,23 +48,23 @@
                                                 <td><%= p.costumer %></td>
                                                 <td><%= p.address %></td>
                                                 <td>
-                                                    <%= new Date(p.date).toLocaleDateString('vi-VN', {day: 'numeric',
-                                                    month: 'numeric', year: 'numeric'}) %>
+                                                    <%= p.date.toLocaleDateString('vi-VN', {day: 'numeric', month:
+                                                    'numeric', year: 'numeric'}) %>
                                                 </td>
                                                 <td><%= p.phone %></td>
                                                 <td>
                                                     <a
-                                                        href="edit_order/<%= p.id %>"
+                                                        href="/edit_order/<%= p.id %>"
                                                         class="btn btn-outline-dark"
                                                         style="margin-left: 0px !important"
                                                         id="save_btn"
                                                     >
-                                                        Sửa</a
+                                                        Xác nhận</a
                                                     >
-                                                    <a href="ord_detail/<%= p.id %>" class="btn btn-outline-danger"
+                                                    <a href="/ord_detail/<%= p.id %>" class="btn btn-outline-danger"
                                                         >Chi tiết</a
                                                     >
-                                                    <a href="delete_ord/<%= p.id %> " class="btn btn-outline-success"
+                                                    <a href="/delete_ord/<%= p.id %> " class="btn btn-outline-success"
                                                         >Xóa</a
                                                     >
                                                 </td>

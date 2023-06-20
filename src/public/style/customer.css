@@ -1,0 +1,27 @@
+.nav-link:hover{
+    color: #dc4e3f !important;
+} 
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 4px 8px;
+  }
+select.select{
+    width: 100%;
+    padding: 12px 0 ;
+  }
+button.btn.btn-outline-dark {
+    width: 100%;
+}
+#breadcrumID{
+  margin: 8px 0 !important;
+}
+a:hover{
+  color: #dc4e3f;
+}

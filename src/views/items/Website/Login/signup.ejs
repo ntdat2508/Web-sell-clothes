@@ -1,56 +1,164 @@
-    <div class="fix-spacing" style="height:135px;">
-
+<div class="fix-spacing" style="height: 135px"></div>
+<!-- content -->
+<div class="">
+    <div class="container-breadcrumb">
+        <div class="container">
+            <ul id="breadcrumID" class="breadcrumb">
+                <li class="breadcrumb-item fw-light"><a href="../home/index.html">Trang chủ</a></li>
+                <li class="breadcrumb-item active text-danger" aria-current="page">Đăng ký tài khoản</li>
+            </ul>
+        </div>
     </div>
-    <!-- content -->
-    <div class="">
-        <div class="container-breadcrumb">
-            <div class="container">
-                <ul id="breadcrumID" class="breadcrumb">
-                    <li class="breadcrumb-item fw-light"><a href="../home/index.html">Trang chủ</a></li>
-                    <li class="breadcrumb-item active text-danger" aria-current="page">Đăng ký tài khoản</li>
-                </ul>
+    <div id="login">
+        <div class="container mt-4">
+            <div class="text-center">
+                <h1 class="">Đăng Ký Tài Khoản</h1>
+                <p class="fw-light">Nếu chưa có tài khoản vui lòng đăng ký tại đây</p>
             </div>
-        </div>
-        <div id="login">
-            <div class="container mt-4">
-                <div class="text-center">
-                    <h1 class="">
-                        Đăng Ký Tài Khoản
-                    </h1>
-                    <p class="fw-light">Nếu chưa có tài khoản vui lòng đăng ký tại đây</p>
-                </div>
-                <div class="social-login d-flex justify-content-center">
-                    <a class="text-end me-2" href=""><img src="../img/social-login/fb-btn.svg" alt="facebook" width="128px" height="36px"></a>
-                    <a class="text-start ms-2" href=""><img src="../img/social-login/gp-btn.svg" alt="google" width="128px" height="36px"></a>
-                </div>
-                <form class="form-signup mx-5" onsubmit="signup()">
-                    <div class="mb-3">
-                        <label for="firstname" class="form-label">Họ<span id="errorfstname" class="text-danger fs-6">*</span></label>
-                        <input type="text" class="form-control" id="firstname" aria-describedby="emailHelp" required placeholder="điền họ" value="">
-                      </div>
-                      <div class="mb-3">
-                        <label for="lastname" class="form-label">Tên<span id="errorlstname" class="text-danger fs-6">*</span></label>
-                        <input type="text" class="form-control" id="lastname" aria-describedby="emailHelp" required placeholder="điền Tên" value="">
-                      </div>
-                      <div class="mb-3">
-                        <label for="phonenumber" class="form-label">Số điện thoại<span id="errorpnumber" class="text-danger fs-6">*</span></label>
-                        <input type="text" class="form-control" id="phonenumber" aria-describedby="emailHelp" required placeholder="điền số điện thoại" value="">
-                      </div>
-                    <div class="mb-3">
-                      <label for="email" class="form-label">Email address <span id="erroremail" class="text-danger fs-6">*</span></label>
-                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required placeholder="điền email của bạn" value="">
-                    </div>
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Mật Khẩu <span id="errorpsw" class="text-danger fs-6">*</span></label>
-                      <input type="password" class="form-control" id="password" required placeholder="điền mật khẩu" value="">
-                    </div>
-                    <div class="text-center mt-5">
-                        <button type="submit" class="btn btn-outline-light custom_button_viewmore px-5 py-2" >Tạo Tài Khoản</button>
-                    </div>
-                    <p class="text-center mt-3"><a class="text-danger fw-bold" style="font-size:0.9rem ;" href="../login/login.html">Đăng Nhập</a></p>
-                  </form>
+            <div class="social-login d-flex justify-content-center">
+                <a class="text-end me-2" href=""
+                    ><img src="../img/social-login/fb-btn.svg" alt="facebook" width="128px" height="36px"
+                /></a>
+                <a class="text-start ms-2" href=""
+                    ><img src="../img/social-login/gp-btn.svg" alt="google" width="128px" height="36px"
+                /></a>
             </div>
+            <form class="form-signup mx-5" method="post" action="signup" id="signup-form">
+                <div class="mb-3">
+                    <label for="username" class="form-label"
+                        >User name<span id="errorfstname" class="text-danger fs-6">*</span></label
+                    >
+                    <input
+                        name="username"
+                        type="text"
+                        class="form-control form-group"
+                        id="username"
+                        aria-describedby="emailHelp"
+                        required
+                        placeholder="Điền user name"
+                    />
+                    <span class="form-message"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label"
+                        >Địa chỉ Email<span id="erroremail" class="text-danger fs-6">*</span></label
+                    >
+                    <input
+                        name="email"
+                        type="email"
+                        class="form-control form-group"
+                        id="email"
+                        aria-describedby="emailHelp"
+                        required
+                        placeholder="Điền email của bạn"
+                    />
+                    <span class="form-message"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label"
+                        >Số điện thoại<span id="errorphone" class="text-danger fs-6">*</span></label
+                    >
+                    <input
+                        name="phone"
+                        type="text"
+                        class="form-control form-group"
+                        id="phone"
+                        aria-describedby="emailHelp"
+                        required
+                        placeholder="Điền số điện thoại của bạn"
+                    />
+                    <span class="form-message"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label"
+                        >Đặt mật khẩu<span id="errorpsw" class="text-danger fs-6">*</span></label
+                    >
+                    <input
+                        name="password"
+                        type="password"
+                        class="form-control form-group"
+                        id="password"
+                        required
+                        placeholder="Điền mật khẩu mới"
+                    />
+                    <span class="form-message"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label"
+                        >Nhập lại mật khẩu<span id="errorpsw" class="text-danger fs-6">*</span></label
+                    >
+                    <input
+                        name="password-confirmation"
+                        type="password"
+                        class="form-control form-group"
+                        id="password_confirmation"
+                        required
+                        placeholder="Nhập lại mật khẩu"
+                    />
+                    <span class="form-message"></span>
+                </div>
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn btn-outline-light custom_button_viewmore px-5 py-2">
+                        Tạo Tài Khoản
+                    </button>
+                </div>
+                <p class="text-center mt-3">
+                    <a class="text-danger fw-bold" style="font-size: 0.9rem" href="login">Đăng Nhập</a>
+                </p>
+            </form>
         </div>
-        <!-- quên mật khẩu -->
-        
-  
+    </div>
+    <!-- quên mật khẩu -->
+</div>
+
+<script>
+    const form = document.getElementById('signup-form');
+
+    form.addEventListener('submit', (event) => {
+        // Kiểm tra tính hợp lệ của các input
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const passwordConfirmationInput = document.getElementById('password_confirmation');
+
+        const usernameValue = usernameInput.value.trim();
+        const emailValue = emailInput.value.trim();
+        const passwordValue = passwordInput.value.trim();
+        const passwordConfirmationValue = passwordConfirmationInput.value.trim();
+
+        let isValid = true;
+
+        // Kiểm tra tính hợp lệ của các input và hiển thị thông báo lỗi nếu cần
+        if (usernameValue.length < 3) {
+            const usernameError = document.createElement('span');
+            usernameError.innerText = 'Username must be at least 3 characters long';
+            usernameInput.parentNode.appendChild(usernameError);
+            isValid = false;
+        }
+
+        if (!/^\S+@\S+\.\S+$/.test(emailValue)) {
+            const emailError = document.createElement('span');
+            emailError.innerText = 'Email is invalid';
+            emailInput.parentNode.appendChild(emailError);
+            isValid = false;
+        }
+
+        if (passwordValue.length < 6) {
+            const passwordError = document.createElement('span');
+            passwordError.innerText = 'Password must be at least 6 characters long';
+            passwordInput.parentNode.appendChild(passwordError);
+            isValid = false;
+        }
+
+        if (passwordValue !== passwordConfirmationValue) {
+            const passwordConfirmationError = document.createElement('span');
+            passwordConfirmationError.innerText = 'Passwords do not match';
+            passwordConfirmationInput.parentNode.appendChild(passwordConfirmationError);
+            isValid = false;
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // Ngăn chặn gửi form nếu form không hợp lệ
+        }
+    });
+</script>
